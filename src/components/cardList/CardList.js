@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 
 import CardSingle from "../card/CardSingle";
+
+const axios = require("axios");
 
 export default function CardList() {
   //our list of card is updated in this react state
@@ -42,11 +43,7 @@ export default function CardList() {
       setCardValues(result.data);
     };
     fetchData();
-
-  },[]);
-
-
-
+  }, []);
 
   // useEffect(()=>{
   //   cardValues.map((person)=>{
@@ -54,16 +51,19 @@ export default function CardList() {
   //   })
   // },[cardValues])
 
-
-/* card list will be the parent of card */
+  /* card list will be the parent of card */
 
   return (
-    <ul>
-      {cardValues.map((person)=>{
-        <li key={person.id}>
-          <p>{person.name}</p>
-        </li>
-      })}
-    </ul>
+    <div>
+      <ul>
+        {cardValues.map((person, index) => {
+          return (
+            <li key={index}>
+              <CardSingle val={person}/>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 }

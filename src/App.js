@@ -1,12 +1,11 @@
-import logo from './logo.svg';
-import './App.css';
-import CardList from './components/cardList/CardList'
+import "./App.css";
+import CardList from "./components/cardList/CardList";
+import { Provider } from "react-redux";
 
 function App() {
   return (
     <div className="App">
-    <p>Hello React</p>
-    <CardList/>
+      <CardList />
     </div>
   );
 }

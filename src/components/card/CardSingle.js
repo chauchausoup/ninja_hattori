@@ -1,14 +1,11 @@
 // this is the single component that shows the implementation of the card
 
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import ButtonBase from '@material-ui/core/ButtonBase';
-
-
-
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import ButtonBase from "@material-ui/core/ButtonBase";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
-    margin: 'auto',
+    margin: "auto",
     maxWidth: 300,
   },
   image: {
@@ -24,47 +21,61 @@ const useStyles = makeStyles((theme) => ({
     height: 128,
   },
   img: {
-    margin: 'auto',
-    display: 'block',
-    maxWidth: '100%',
-    maxHeight: '100%',
+    margin: "auto",
+    display: "block",
+    maxWidth: "100%",
+    maxHeight: "100%",
   },
 }));
 
-export default function ComplexGrid() {
+
+
+const roboHashURL ="https://robohash.org/";
+
+
+
+export default function ComplexGrid(props) {
   const classes = useStyles();
+  const randomGenerator = props.val.id + new Date();
+
 
   return (
     <div className={classes.root}>
-     
       <Paper className={classes.paper}>
         <Grid container spacing={2}>
           <Grid item>
             <ButtonBase className={classes.image}>
-              <img className={classes.img} alt="complex" src="https://robohash.org/104.236.21.134.png" />
+              <img
+                className={classes.img}
+                alt="complex"
+                src={roboHashURL+randomGenerator}
+              />
             </ButtonBase>
           </Grid>
           <Grid item xs={12} sm container>
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  Name
+                  {props.val.name}
                 </Typography>
                 <Typography variant="body2" gutterBottom>
-                  username
+                  {props.val.username}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  email
+                  {props.val.email}
                 </Typography>
               </Grid>
               <Grid item>
-                <Typography variant="body2" style={{ cursor: 'pointer' }}>
-                  address
+                <Typography variant="body2" style={{ cursor: "pointer" }}>
+                  <h4>Address:   </h4>
+                  <ul>
+                    <li>{props.val.address.street}</li>
+                    <li>{props.val.address.suite}</li>
+                    <li>{props.val.address.city}</li>
+                    <li>{props.val.address.zipcode}</li>
+                  </ul>
                 </Typography>
               </Grid>
-            </Grid>
-            <Grid item>
-              <Typography variant="subtitle1">Company</Typography>
             </Grid>
           </Grid>
         </Grid>
@@ -72,4 +83,3 @@ export default function ComplexGrid() {
     </div>
   );
 }
-
