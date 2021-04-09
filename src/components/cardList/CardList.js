@@ -42,14 +42,28 @@ export default function CardList() {
       setCardValues(result.data);
     };
     fetchData();
+
   },[]);
+
+
+
+
+  // useEffect(()=>{
+  //   cardValues.map((person)=>{
+  //     console.log(person)
+  //   })
+  // },[cardValues])
 
 
 /* card list will be the parent of card */
 
   return (
-    <div>
-      <CardSingle />
-    </div>
+    <ul>
+      {cardValues.map((person)=>{
+        <li key={person.id}>
+          <p>{person.name}</p>
+        </li>
+      })}
+    </ul>
   );
 }
