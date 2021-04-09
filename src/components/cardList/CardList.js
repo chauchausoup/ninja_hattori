@@ -45,7 +45,7 @@ export default function CardList() {
   },[]);
 
 
-
+/* card list will be the parent of card */
 
   return (
     <div>
