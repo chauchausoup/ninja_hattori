@@ -1,7 +1,13 @@
-import {createStore} from "redux"
-import personsReducer from '../persons/persons.reducer'
+import {createStore} from "redux";
 
+import rootReducer from '../rootReducer'
 
-const store = createStore(personsReducer)
+const store = createStore(rootReducer)
 
 export default store
+
+
+
+
+
+
