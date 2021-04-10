@@ -28,16 +28,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
-const roboHashURL ="https://robohash.org/";
-
-
+const roboHashURL = "https://robohash.org/";
 
 export default function ComplexGrid(props) {
   const classes = useStyles();
   const randomGenerator = props.val.id + new Date();
-
 
   return (
     <div className={classes.root}>
@@ -48,7 +43,7 @@ export default function ComplexGrid(props) {
               <img
                 className={classes.img}
                 alt="complex"
-                src={roboHashURL+randomGenerator}
+                src={roboHashURL + randomGenerator}
               />
             </ButtonBase>
           </Grid>
@@ -67,13 +62,15 @@ export default function ComplexGrid(props) {
               </Grid>
               <Grid item>
                 <Typography variant="body2" style={{ cursor: "pointer" }}>
-                  <h4>Address:   </h4>
-                  <ul>
-                    <li>{props.val.address.street}</li>
-                    <li>{props.val.address.suite}</li>
-                    <li>{props.val.address.city}</li>
-                    <li>{props.val.address.zipcode}</li>
-                  </ul>
+                  <div>
+                    <h4>Address: </h4>
+                    <ul>
+                      <li>{props.val.address.street}</li>
+                      <li>{props.val.address.suite}</li>
+                      <li>{props.val.address.city}</li>
+                      <li>{props.val.address.zipcode}</li>
+                    </ul>
+                  </div>
                 </Typography>
               </Grid>
             </Grid>

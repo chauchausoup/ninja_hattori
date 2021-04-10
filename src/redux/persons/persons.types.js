@@ -1,0 +1,4 @@
+export const UPDATE_PERSONS = 'UPDATE_PERSONS';
+
+
+
