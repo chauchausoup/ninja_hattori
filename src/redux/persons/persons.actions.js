@@ -30,7 +30,7 @@ export const randomizeUsers = () => {
   return (dispatch) => {
    
       console.log("present state", store.getState())
-      dispatch(randomizePersons());
+      dispatch(randomizePersons(store.getState().persons.users));
     
   };
 };

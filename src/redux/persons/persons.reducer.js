@@ -50,7 +50,7 @@ const personsReducer = (state = initialState, action) => {
       };
 
     case RANDOMIZE_PERSONS:
-      console.log(state);
+      // console.log(state);
       return {
         loading: false,
         users: action.payload,

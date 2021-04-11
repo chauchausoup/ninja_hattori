@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function UsersContainer({ userData, fetchUsers }) {
+function UsersContainer({ userData, fetchUsers,randomizeUsers }) {
   const classes = useStyles();
 
   useEffect(() => {
@@ -67,7 +67,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchUsers: () => dispatch(fetchUsers()),
-    randomizeUsers: ()=>dispatch()
+    randomizeUsers: ()=>dispatch(randomizeUsers())
   };
 };
 
