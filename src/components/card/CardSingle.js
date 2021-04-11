@@ -33,6 +33,7 @@ const roboHashURL = "https://robohash.org/";
 export default function ComplexGrid(props) {
   const classes = useStyles();
   const randomGenerator = props.val.id + new Date();
+  console.log("card called")
 
   return (
     <div className={classes.root}>

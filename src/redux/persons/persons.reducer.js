@@ -1,6 +1,6 @@
 //lets import action type
 import {
-  UPDATE_PERSONS,
+  RANDOMIZE_PERSONS,
   FETCH_USER_REQUEST,
   FETCH_USER_FAILURE,
   FETCH_USER_SUCCESS,
@@ -49,11 +49,11 @@ const personsReducer = (state = initialState, action) => {
         error: action.payload,
       };
 
-    case UPDATE_PERSONS:
+    case RANDOMIZE_PERSONS:
       console.log(state);
       return {
         loading: false,
-        users: randomization(),
+        users: action.payload,
         error: "",
       };
 
@@ -62,8 +62,6 @@ const personsReducer = (state = initialState, action) => {
   }
 };
 
-function randomization() {
-  console.log("randomization");
-}
+
 
 export default personsReducer;
