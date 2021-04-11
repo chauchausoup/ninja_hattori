@@ -62,6 +62,4 @@ const personsReducer = (state = initialState, action) => {
   }
 };
 
-
-
 export default personsReducer;

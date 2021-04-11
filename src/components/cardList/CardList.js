@@ -8,8 +8,7 @@ import CardSingle from "../card/CardSingle";
 import { connect } from "react-redux";
 
 // import { updatePersons } from "../../redux/index";
-import { fetchUsers,randomizeUsers } from "../../redux/index";
-
+import { fetchUsers, randomizeUsers } from "../../redux/index";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,19 +18,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function UsersContainer({ userData, fetchUsers,randomizeUsers }) {
+function UsersContainer({ userData, fetchUsers, randomizeUsers }) {
   const classes = useStyles();
 
   useEffect(() => {
     fetchUsers();
   }, []);
 
-  const clickRandomHandler=()=>{
-    console.log("raondomizer called")
-    randomizeUsers()
-  }
-
-  
+  const clickRandomHandler = () => {
+    console.log("raondomizer called");
+    randomizeUsers();
+  };
 
   return userData.loading ? (
     <h2>Loading</h2>
@@ -40,7 +37,9 @@ function UsersContainer({ userData, fetchUsers,randomizeUsers }) {
   ) : (
     <div>
       <div className={classes.root}>
-        <Button variant="contained" onClick={clickRandomHandler}>Randomize</Button>
+        <Button variant="contained" onClick={clickRandomHandler}>
+          Randomize
+        </Button>
       </div>
 
       <h2>Users List</h2>
@@ -67,7 +66,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchUsers: () => dispatch(fetchUsers()),
-    randomizeUsers: ()=>dispatch(randomizeUsers())
+    randomizeUsers: () => dispatch(randomizeUsers()),
   };
 };
 

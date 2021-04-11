@@ -1,8 +1,5 @@
 import axios from "axios";
-import store from '../store/store'
-
-
-
+import store from "../store/store";
 
 import {
   FETCH_USER_REQUEST,
@@ -28,10 +25,8 @@ export const fetchUsers = () => {
 
 export const randomizeUsers = () => {
   return (dispatch) => {
-   
-      console.log("present state", store.getState())
-      dispatch(randomizePersons(store.getState().persons.users));
-    
+    console.log("present state", store.getState());
+    dispatch(randomizePersons(store.getState().persons.users));
   };
 };
 
