@@ -13,21 +13,6 @@ const initialState = {
   error: "",
 };
 
-// id: "1",
-// firstName: "Anish",
-// username: "ans",
-// email: "abc@email.com",
-// address: {
-//     street: "Kulas Light",
-//   suite: "123 suite",
-//   city: "Pokhara",
-//   zipcode: "44567",
-//   geo: {
-//     lat: "123123",
-//     lng: "123123",
-//   },
-// }
-
 const personsReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_USER_SUCCESS:
