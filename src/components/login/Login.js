@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState,useContext,createContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
 import Cookies from "universal-cookie";
+import { useHistory, useLocation } from "react-router";
 const cookies = new Cookies();
 
 const useStyles = makeStyles((theme) => ({
@@ -15,7 +16,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
+
+
+const authContext = createContext();
+
+
+function useAuth() {
+  return useContext(authContext);
+}
+
+
+
+
+
 export default function Login() {
+  //history
+  let history =useHistory();
+  let location = useLocation()
+  let auth = useAuth()
+
+
+
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -33,11 +57,6 @@ export default function Login() {
     console.log("login success");
     //clear text box values
     //got to /user-list page
-    
-
-
-
-
   };
 
   const handleLoginFailure = () => {
