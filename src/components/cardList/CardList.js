@@ -10,17 +10,14 @@ import { connect } from "react-redux";
 // import { updatePersons } from "../../redux/index";
 import { fetchUsers, randomizeUsers } from "../../redux/index";
 
-
-import './CardList.css'
-
+import "./CardList.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
       margin: theme.spacing(1),
-      
     },
-    "textAlign":"centre"
+    textAlign: "centre",
   },
 }));
 
@@ -32,7 +29,7 @@ function UsersContainer({ userData, fetchUsers, randomizeUsers }) {
   }, []);
 
   const clickRandomHandler = () => {
-    console.log("raondomizer called");
+    console.log("randomizer called");
     randomizeUsers();
   };
 

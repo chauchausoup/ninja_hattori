@@ -6,8 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import ButtonBase from "@material-ui/core/ButtonBase";
-import Button from '@material-ui/core/Button'
-
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     margin: "20px",
     maxWidth: 300,
-    minHeight:200
+    minHeight: 200,
   },
   image: {
     width: 128,
@@ -36,7 +35,10 @@ const roboHashURL = "https://robohash.org/";
 export default function ComplexGrid(props) {
   const classes = useStyles();
   const randomGenerator = props.val.id + new Date();
-  console.log("card called")
+
+  const voteHandle = (username) => {
+    console.log("there was a vote for", username);
+  };
 
   return (
     <div className={classes.root}>
@@ -55,14 +57,18 @@ export default function ComplexGrid(props) {
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  {props.val.name}
+                  {props.val.name}{props.val.voteCount}
                 </Typography>
                 <Typography variant="body2" gutterBottom>
-                  <Button variant="contained" color="secondary">Vote {props.val.username}</Button>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={() => voteHandle(props.val.username)}
+                  >
+                    Vote {props.val.username}
+                  </Button>
                 </Typography>
-                
               </Grid>
-           
             </Grid>
           </Grid>
         </Grid>

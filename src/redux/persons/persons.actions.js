@@ -8,6 +8,8 @@ import {
   RANDOMIZE_PERSONS,
 } from "./persons.types";
 
+export var initialVoteState = [];
+
 export const fetchUsers = () => {
   return (dispatch) => {
     dispatch(fetchUsersRequest());
@@ -15,6 +17,15 @@ export const fetchUsers = () => {
       .get("https://jsonplaceholder.typicode.com/users")
       .then((response) => {
         const persons = response.data;
+        //lets make here some JSON to store initial username and vote cout of each users
+
+        persons.map((item, index) => {
+          initialVoteState.push({
+            username: item.username,
+            vote: 1,
+          });
+        });
+
         dispatch(fetchUsersSuccess(persons));
       })
       .catch((error) => {
