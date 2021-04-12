@@ -13,6 +13,8 @@ import {
 import Login from "../login/Login"; //login button page or a component
 import Signup from "../signup/Signup"; // public
 import CardList from "../cardList/CardList"; //protected
+import Signout from '../signout/Signout'
+import {PrivateRoute} from '../authUtilities'
 
 
 
@@ -22,6 +24,9 @@ function Homepage() {
       <div>
         <nav>
           <ul>
+            <li>
+              <Signout/>
+            </li>
             <li>
               <Link to="/login">
                 <button>Login</button>
@@ -53,82 +58,3 @@ function Homepage() {
 }
 
 export default Homepage;
-
-//there is a fakeAuth() too
-
-//it is a typical object that has data and methods
-
-const fakeAuth = {
-  isAuthenticated: false,
-  signin(cb) {
-    fakeAuth.isAuthenticated = true;
-    setTimeout(cb, 100);
-  },
-  signout(cb) {
-    fakeAuth.isAuthenticated = false;
-    setTimeout(cb, 100);
-  },
-};
-
-//now we will make a useProvideAuth() that will contain the actual authentication information
-function useProvideAuth() {
-  const [user, setUser] = useState(null);
-  const signin = (cb) => {
-    return fakeAuth.signin(() => {
-      setUser("user");
-      cb();
-    });
-  };
-
-  const signout = (cb) => {
-    return fakeAuth.signout(() => {
-      setUser(null);
-      cb();
-    });
-  };
-
-  return {
-    user,
-    signin,
-    signout,
-  };
-}
-
-//authContext is used with the provider to invoke the value in subsequent components
-
-function ProvideAuth({ children }) {
-  const auth = useProvideAuth();
-}
-
-//authContext object
-
-const AuthContext = createContext();
-
-//useAuth()
-
-function useAuth() {
-  return useContext(authContext);
-}
-
-// a wrapper for route that redirects to /login if you are not authnticated
-
-function PrivateRoute({ children, ...rest }) {
-  let auth = useAuth();
-  return (
-    <Route
-      {...rest}
-      render=
-      {({ location }) =>
-        auth.user ? (
-          children
-        ) : (
-          <Redirect 
-          to={{ 
-            pathname: "/login", 
-            state: { from: location }
-          }} />
-        )
-      }
-    />
-  );
-}
