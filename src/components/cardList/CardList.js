@@ -10,11 +10,17 @@ import { connect } from "react-redux";
 // import { updatePersons } from "../../redux/index";
 import { fetchUsers, randomizeUsers } from "../../redux/index";
 
+
+import './CardList.css'
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
       margin: theme.spacing(1),
+      
     },
+    "textAlign":"centre"
   },
 }));
 
@@ -42,10 +48,7 @@ function UsersContainer({ userData, fetchUsers, randomizeUsers }) {
         </Button>
       </div>
 
-      <h2>Users List</h2>
-      <div>
-        {/* {JSON.stringify(userData)} */}
-
+      <div className="userList">
         {userData &&
           userData.users &&
           userData.users.map((person) => <CardSingle val={person} />)}

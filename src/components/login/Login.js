@@ -1,4 +1,4 @@
-import React, { useState, useContext, createContext } from "react";
+import React, { useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -81,7 +81,7 @@ export default function Login() {
   return (
     <form className={classes.root} noValidate autoComplete="off">
       <TextField
-        id="outlined-basic"
+        id="outlined-basic-username"
         label="username"
         variant="outlined"
         onChange={usernameSet}
@@ -89,7 +89,7 @@ export default function Login() {
       <br />
 
       <TextField
-        id="outlined-basic"
+        id="outlined-basic-password"
         label="password"
         variant="outlined"
         onChange={passwordSet}

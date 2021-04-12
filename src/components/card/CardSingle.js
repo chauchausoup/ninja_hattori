@@ -6,6 +6,8 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import ButtonBase from "@material-ui/core/ButtonBase";
+import Button from '@material-ui/core/Button'
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,8 +15,9 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
-    margin: "auto",
+    margin: "20px",
     maxWidth: 300,
+    minHeight:200
   },
   image: {
     width: 128,
@@ -55,25 +58,11 @@ export default function ComplexGrid(props) {
                   {props.val.name}
                 </Typography>
                 <Typography variant="body2" gutterBottom>
-                  {props.val.username}
+                  <Button variant="contained" color="secondary">Vote {props.val.username}</Button>
                 </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  {props.val.email}
-                </Typography>
+                
               </Grid>
-              <Grid item>
-                <Typography variant="body2" style={{ cursor: "pointer" }}>
-                  <div>
-                    <h4>Address: </h4>
-                    <ul>
-                      <li>{props.val.address.street}</li>
-                      <li>{props.val.address.suite}</li>
-                      <li>{props.val.address.city}</li>
-                      <li>{props.val.address.zipcode}</li>
-                    </ul>
-                  </div>
-                </Typography>
-              </Grid>
+           
             </Grid>
           </Grid>
         </Grid>

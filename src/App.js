@@ -1,4 +1,5 @@
 import "./App.css";
+import React from "react";
 import { Provider } from "react-redux";
 import store from "./redux/store/store";
 import Homepage from "./components/homepage/Homepage";
@@ -24,7 +25,7 @@ function App() {
         <Router>
           <div className="App">
             <nav>
-              <ul>
+              <ul className="navigation">
                 <li>
                   <Link to="/">Homepage</Link>
                 </li>

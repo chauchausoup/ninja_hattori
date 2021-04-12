@@ -1,13 +1,9 @@
-import React, { useContext, createContext, useState } from "react";
+import React from "react";
 //react router dom
 import {
   BrowserRouter as Router,
-  Switch,
   Route,
   Link,
-  Redirect,
-  useHistory,
-  useLocation,
 } from "react-router-dom";
 
 import Login from "../login/Login"; //login button page or a component

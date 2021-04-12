@@ -13,6 +13,10 @@ import {
   PrivateRoute
 } from "./authUtilities";
 
+
+//example: https://reactrouter.com/web/example/auth-workflow
+
+
 export default function AuthExample() {
   return (
     <ProvideAuth>

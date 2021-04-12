@@ -1,11 +1,7 @@
 import React, { useContext, createContext, useState } from "react";
 import {
-  BrowserRouter as Router,
   Route,
-  Link,
   Redirect,
-  useHistory,
-  useLocation,
 } from "react-router-dom";
 
 const fakeAuth = {

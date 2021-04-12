@@ -53,7 +53,7 @@ export default function SignUp() {
   return (
     <form className={classes.root} noValidate autoComplete="off">
       <TextField
-        id="outlined-basic"
+        id="outlined-basic-username"
         label="username"
         variant="outlined"
         onChange={usernameSet}
@@ -61,7 +61,7 @@ export default function SignUp() {
       <br />
 
       <TextField
-        id="outlined-basic"
+        id="outlined-basic-password"
         label="password"
         variant="outlined"
         onChange={passwordSet}
