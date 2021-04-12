@@ -4,24 +4,23 @@ import {
   FETCH_USER_REQUEST,
   FETCH_USER_FAILURE,
   FETCH_USER_SUCCESS,
-  VOTE_STATE
+  VOTE_STATE,
 } from "./persons.types";
 
 //initial state for our vote reducer
-const initialVoteState={
-  username:"",
-  vote:1
-}
+const initialVoteState = [{ "": 1 }];
 
-const personsVoteReducer = (state=initialVoteState,action)=>{
-  switch(action.type){
+const personsVoteReducer = (state = initialVoteState, action) => {
+  switch (action.type) {
     case VOTE_STATE:
       return {
+      
         
-        
-      }
+      };
+    default:
+      return state;
   }
-}
+};
 
 //initial state for our person reducer
 const initialPersonState = {

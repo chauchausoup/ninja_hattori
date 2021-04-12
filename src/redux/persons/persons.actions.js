@@ -6,7 +6,9 @@ import {
   FETCH_USER_SUCCESS,
   FETCH_USER_FAILURE,
   RANDOMIZE_PERSONS,
+  VOTE_STATE
 } from "./persons.types";
+
 
 export var initialVoteState = [];
 
@@ -18,13 +20,6 @@ export const fetchUsers = () => {
       .then((response) => {
         const persons = response.data;
         //lets make here some JSON to store initial username and vote cout of each users
-
-        persons.map((item, index) => {
-          initialVoteState.push({
-            username: item.username,
-            vote: 1,
-          });
-        });
 
         dispatch(fetchUsersSuccess(persons));
       })

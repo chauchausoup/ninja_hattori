@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import Button from "@material-ui/core/Button";
@@ -22,6 +22,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function UsersContainer({ userData, fetchUsers, randomizeUsers }) {
+
+  const [myVoteState,setMyVoteState]=useState(null)
+
+
   const classes = useStyles();
 
   useEffect(() => {
@@ -31,6 +35,7 @@ function UsersContainer({ userData, fetchUsers, randomizeUsers }) {
   const clickRandomHandler = () => {
     console.log("randomizer called");
     randomizeUsers();
+    console.log(myVoteState)
   };
 
   return userData.loading ? (
@@ -48,7 +53,14 @@ function UsersContainer({ userData, fetchUsers, randomizeUsers }) {
       <div className="userList">
         {userData &&
           userData.users &&
-          userData.users.map((person) => <CardSingle val={person} />)}
+          userData.users.map((person) => {
+
+            setMyVoteState({
+              
+            });
+
+            return <CardSingle val={person} />;
+          })}
       </div>
     </div>
   );
