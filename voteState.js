@@ -205,20 +205,16 @@ const ide = {
   error: "",
 };
 
-
-var myMap = ide.users.map((item,index)=>{
+var myMap = ide.users.map((item, index) => {
   return {
-    id:item.id,
-    name:item.name,
-    username:item.username,
-    vote:0
-  }
-})
+    id: item.id,
+    name: item.name,
+    username: item.username,
+    vote: 0,
+  };
+});
 
-
-console.log(myMap)
-
-
+console.log(myMap);
 
 // var myMap = {};
 
@@ -226,8 +222,6 @@ console.log(myMap)
 // //   myMap.set(item.username, 1);
 //     myMap[item.username]=1
 // });
-
-
 
 // //this is the state of each users
 
@@ -240,7 +234,6 @@ console.log(myMap)
 //   console.log(myMap);
 // }
 
-
 // vote("Bret");
 // vote("Samantha");
 
@@ -251,7 +244,6 @@ console.log(myMap)
 
 // vote("Bret");
 // vote("Samantha");
-
 
 // result();
 
