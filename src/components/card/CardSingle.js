@@ -8,8 +8,10 @@ import Typography from "@material-ui/core/Typography";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Button from "@material-ui/core/Button";
 
+import { voteState } from "../../redux/index";
+import { connect } from "react-redux";
 
-import {voteState} from '../../redux/index'
+import store from "../../redux/store/store";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 const roboHashURL = "https://robohash.org/";
 
-export default function ComplexGrid(props) {
+function ComplexGrid(props) {
   // const [voteStateSingle, setVoteState] = useState(props.val.vote);
 
   const classes = useStyles();
@@ -45,7 +47,8 @@ export default function ComplexGrid(props) {
     console.log("there was a vote for", username);
     //  setVoteState(prev=>prev+1)
     // console.log(voteStateSingle)
-    voteState(username)
+    voteState(username);
+    // console.log(store.getState())
   };
 
   return (
@@ -65,7 +68,8 @@ export default function ComplexGrid(props) {
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  {props.val.name} {"  "} <h2 style={{color:"red"}}>{props.val.vote}</h2>
+                  {props.val.name} {"  "}{" "}
+                  <h2 style={{ color: "red" }}>{props.val.vote}</h2>
                 </Typography>
                 <Typography variant="body2" gutterBottom>
                   <Button
@@ -84,3 +88,18 @@ export default function ComplexGrid(props) {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    userData: state.persons,
+  };
+};
+
+//defining map dispatch to props
+const mapDispatchToProps = (dispatch) => {
+  return {
+    voteState: (username) => dispatch(voteState(username)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ComplexGrid);

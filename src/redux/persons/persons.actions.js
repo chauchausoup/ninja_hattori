@@ -1,4 +1,5 @@
 import axios from "axios";
+import { bindActionCreators } from "redux";
 import store from "../store/store";
 
 import {
@@ -43,9 +44,25 @@ export const randomizeUsers = () => {
 
 export const voteState = (username) => {
   console.log(username + " from actions");
+  const priorUsers = store.getState().persons.users;
+
+  // var somePayload = [];
+
+  var somePayload = priorUsers.map((item, index) =>
+    item.username === username
+      ? {
+          id: item.id,
+          name: item.name,
+          username: item.username,
+          vote: item.vote++,
+        }
+      : item
+  );
+
+  console.log(somePayload);
 
   return (dispatch) => {
-    dispatch(voteUserState(store.getState().persons.users));
+    dispatch(voteUserState(somePayload));
   };
 };
 
@@ -73,6 +90,7 @@ export const fetchUsersRequest = () => {
 };
 
 export const fetchUsersSuccess = (persons) => {
+  // console.log(JSON.stringify(persons) +  "  from success")
   return {
     type: FETCH_USER_SUCCESS,
     payload: persons,
@@ -86,9 +104,11 @@ export const fetchUsersFailure = (err_message) => {
   };
 };
 
-export const voteUserState = (persons) => {
+export const voteUserState = (somePayload) => {
+  console.log(JSON.stringify(somePayload) + " some payload from payload");
+
   return {
     type: VOTE_STATE,
-    payload: persons,
+    payload: somePayload,
   };
 };

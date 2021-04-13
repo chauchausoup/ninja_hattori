@@ -9,13 +9,12 @@ import {
 
 //initial state for our vote reducer
 
-
 // export const personsVoteReducer = (state = initialVoteState, action) => {
 //   switch (action.type) {
 //     case VOTE_STATE:
 //       return {
 //         ...state,
-        
+
 //       };
 //     default:
 //       return state;
@@ -58,16 +57,13 @@ export const personsReducer = (state = initialPersonState, action) => {
       };
 
     case VOTE_STATE:
-      console.log(state);
-      return{
+      return {
         loading: false,
         users: action.payload,
         error: "",
-      }
+      };
 
     default:
       return state;
   }
 };
-
-

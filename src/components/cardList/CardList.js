@@ -66,8 +66,7 @@ function UsersContainer({ userData, fetchUsers, randomizeUsers }) {
 //redux to props
 //selectors will be a separate file in most of the larger applications
 const mapStateToProps = (state) => {
-
-  console.log(state)
+  console.log(state);
   return {
     userData: state.persons,
   };
@@ -77,7 +76,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchUsers: () => dispatch(fetchUsers()),
-    randomizeUsers: () => dispatch(randomizeUsers()),
+    randomizeUsers: () => dispatch(randomizeUsers())
   };
 };
 
