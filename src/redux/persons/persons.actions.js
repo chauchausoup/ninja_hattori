@@ -10,7 +10,6 @@ import {
 } from "./persons.types";
 
 
-export var initialVoteState = [];
 
 export const fetchUsers = () => {
   return (dispatch) => {
@@ -35,6 +34,9 @@ export const randomizeUsers = () => {
     dispatch(randomizePersons(store.getState().persons.users));
   };
 };
+
+
+
 
 export const randomizePersons = (persons) => {
   //source : https://javascript.info/task/shuffle

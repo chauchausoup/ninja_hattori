@@ -14,8 +14,7 @@ const personsVoteReducer = (state = initialVoteState, action) => {
   switch (action.type) {
     case VOTE_STATE:
       return {
-      
-        
+        ...state,
       };
     default:
       return state;
