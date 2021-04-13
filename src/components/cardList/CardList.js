@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect,useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import Button from "@material-ui/core/Button";
@@ -23,9 +23,8 @@ const useStyles = makeStyles((theme) => ({
 
 function UsersContainer({ userData, fetchUsers, randomizeUsers }) {
 
-  const [myVoteState,setMyVoteState]=useState(null)
 
-
+  const [ iniState,setIniState]=useState({})
   const classes = useStyles();
 
   useEffect(() => {
@@ -35,8 +34,11 @@ function UsersContainer({ userData, fetchUsers, randomizeUsers }) {
   const clickRandomHandler = () => {
     console.log("randomizer called");
     randomizeUsers();
-    console.log(myVoteState)
   };
+
+  const voteInitializer=(username)=>{
+    iniState[username]=0
+  }
 
   return userData.loading ? (
     <h2>Loading</h2>
@@ -54,12 +56,8 @@ function UsersContainer({ userData, fetchUsers, randomizeUsers }) {
         {userData &&
           userData.users &&
           userData.users.map((person) => {
-
-            setMyVoteState({
-              
-            });
-
-            return <CardSingle val={person} />;
+            voteInitializer(person.username)
+            return <CardSingle val={person} sta={iniState} />;
           })}
       </div>
     </div>

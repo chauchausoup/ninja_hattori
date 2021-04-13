@@ -4,12 +4,13 @@ import {
   FETCH_USER_REQUEST,
   FETCH_USER_FAILURE,
   FETCH_USER_SUCCESS,
-  VOTE_STATE,
+  // VOTE_STATE,
 } from "./persons.types";
 
 //initial state for our vote reducer
-const initialVoteState = [{ "": 1 }];
+// const initialVoteState = [{ "": 1 }];
 
+<<<<<<< HEAD
 const personsVoteReducer = (state = initialVoteState, action) => {
   switch (action.type) {
     case VOTE_STATE:
@@ -20,6 +21,19 @@ const personsVoteReducer = (state = initialVoteState, action) => {
       return state;
   }
 };
+=======
+// export const personsVoteReducer = (state = initialVoteState, action) => {
+//   switch (action.type) {
+//     case VOTE_STATE:
+//       return {
+//         ...state,
+        
+//       };
+//     default:
+//       return state;
+//   }
+// };
+>>>>>>> 233ac7a12d1c6bc48c0c6d33672bd14d87117a6a
 
 //initial state for our person reducer
 const initialPersonState = {
@@ -28,7 +42,7 @@ const initialPersonState = {
   error: "",
 };
 
-const personsReducer = (state = initialPersonState, action) => {
+export const personsReducer = (state = initialPersonState, action) => {
   switch (action.type) {
     case FETCH_USER_SUCCESS:
       return {
@@ -62,4 +76,4 @@ const personsReducer = (state = initialPersonState, action) => {
   }
 };
 
-export default personsReducer;
+

@@ -6,10 +6,15 @@ import {
   FETCH_USER_SUCCESS,
   FETCH_USER_FAILURE,
   RANDOMIZE_PERSONS,
-  VOTE_STATE
+  // VOTE_STATE
 } from "./persons.types";
 
 
+<<<<<<< HEAD
+=======
+// export var initialVoteState = [];
+
+>>>>>>> 233ac7a12d1c6bc48c0c6d33672bd14d87117a6a
 
 export const fetchUsers = () => {
   return (dispatch) => {
@@ -19,7 +24,6 @@ export const fetchUsers = () => {
       .then((response) => {
         const persons = response.data;
         //lets make here some JSON to store initial username and vote cout of each users
-
         dispatch(fetchUsersSuccess(persons));
       })
       .catch((error) => {
@@ -61,6 +65,8 @@ export const fetchUsersRequest = () => {
   };
 };
 
+
+
 export const fetchUsersSuccess = (persons) => {
   return {
     type: FETCH_USER_SUCCESS,
@@ -74,3 +80,11 @@ export const fetchUsersFailure = (err_message) => {
     payload: err_message,
   };
 };
+
+
+// export const voteUserState=(voteState)=>{
+//   return{
+//     type:VOTE_STATE,
+//     payload:voteState
+//   }
+// }
