@@ -41,27 +41,41 @@ export const randomizeUsers = () => {
   };
 };
 
-export const voteState = (username) => {
+export const voteState =  (username) => {
   console.log(username + " from actions");
   const priorUsers = store.getState().persons.users;
 
   // var somePayload = [];
 
-  var somePayload = priorUsers.map((item, index) =>
-    item.username === username
-      ? {
-          id: item.id,
-          name: item.name,
-          username: item.username,
-          vote: item.vote++,
-        }
-      : item
-  );
+  // var somePayload = priorUsers.map((item, index) =>
+  //   item.username === username
+  //     ? {
+  //         id: item.id,
+  //         name: item.name,
+  //         username: item.username,
+  //         vote: item.vote++,
+  //       }
+  //     : item
+  // );
+
+var somePayload = priorUsers.map((item, index) =>
+ 
+
+  (item.username===username) ? {
+    id: item.id,
+    name: item.name,
+    username: item.username,
+    vote: item.vote++,
+  }: item
+)
+
+
 
   console.log(somePayload);
 
   return (dispatch) => {
     dispatch(voteUserState(somePayload));
+   
   };
 };
 

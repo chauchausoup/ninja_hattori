@@ -8,7 +8,10 @@ import CardList from "../cardList/CardList"; //protected
 import Signout from "../signout/Signout";
 import { PrivateRoute } from "../authUtilities";
 
+import { useAuth } from "../authUtilities";
+
 function Homepage() {
+  let auth = useAuth();
   return (
     <Router>
       <div>
@@ -17,16 +20,24 @@ function Homepage() {
             <li>
               <Signout />
             </li>
-            <li>
-              <Link to="/login">
-                <button>Login</button>
-              </Link>
-            </li>
-            <li>
-              <Link to="/signup">
-                <button>Signup</button>
-              </Link>
-            </li>
+
+            {auth.user ? (
+              <> </>
+            ) : (
+              <div>
+                <li>
+                  <Link to="/login">
+                    <button>Login</button>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/signup">
+                    <button>Signup</button>
+                  </Link>
+                </li>
+              </div>
+            )}
+
             <li>
               <Link to="/user-list">Cardlist</Link>
             </li>

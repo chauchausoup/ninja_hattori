@@ -14,6 +14,10 @@ import store from "../../redux/store/store";
 import DeleteOutlineTwoToneIcon from "@material-ui/icons/DeleteOutlineTwoTone";
 
 import EditDialog from './EditDialog'
+import { fetchUsers, randomizeUsers } from "../../redux/index";
+import { connect } from "react-redux";
+
+
 
 
 
@@ -23,14 +27,18 @@ const useStyles = makeStyles({
   },
 });
 
-export default function BasicTable() {
+function BasicTable() {
   const [rowState, setRows] = useState([]);
 
   useEffect(() => {
     const rows = store.getState().persons.users;
     setRows(rows);
     rows.forEach((item) => console.log(item));
+
+    console.log(rows,"this is user data state")
   }, []);
+
+
 
   const classes = useStyles();
 
@@ -50,7 +58,7 @@ export default function BasicTable() {
               <TableCell component="th" scope="row">
                 {row.username}
               </TableCell>
-              <TableCell>{row.vote}</TableCell>
+              <TableCell><h3 style={{color:"red"}}>{row.vote}</h3></TableCell>
               <TableCell align="right">
                 <KeyComponents item={row.username} />
               </TableCell>
@@ -75,12 +83,12 @@ const KeyComponents = (props) => {
   const deleteHandler = (e) => {
 
     alert(`are you sure you want to delete, ${user.item}`);
+
+    console.log((store.getState().persons.users) + " store ")
+
   };
 
 
-  const editHandler=(e)=>{
-
-  }
 
   return (
     <div>
@@ -93,3 +101,27 @@ const KeyComponents = (props) => {
     </div>
   );
 };
+
+
+//redux to props
+//selectors will be a separate file in most of the larger applications
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    userData: state.persons,
+  };
+};
+
+//defining map dispatch to props
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchUsers: () => dispatch(fetchUsers()),
+    randomizeUsers: () => dispatch(randomizeUsers()),
+  };
+};
+
+//we need to connect these two functions with our react components
+//for that we use connect HOC from react redux library
+
+export default connect(mapStateToProps, mapDispatchToProps)(BasicTable);
+
