@@ -1,12 +1,15 @@
 // this is the single component that shows the implementation of the card
 
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Button from "@material-ui/core/Button";
+
+
+import {voteState} from '../../redux/index'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,22 +36,16 @@ const useStyles = makeStyles((theme) => ({
 const roboHashURL = "https://robohash.org/";
 
 export default function ComplexGrid(props) {
-
-  const[ voteState,setVoteState]=useState(props.sta)
-
+  // const [voteStateSingle, setVoteState] = useState(props.val.vote);
 
   const classes = useStyles();
   const randomGenerator = props.val.id + new Date();
 
-
-
-
   const voteHandle = (username) => {
     console.log("there was a vote for", username);
-    voteState[username]++
-    console.log(voteState)
-   
-
+    //  setVoteState(prev=>prev+1)
+    // console.log(voteStateSingle)
+    voteState(username)
   };
 
   return (
@@ -68,7 +65,7 @@ export default function ComplexGrid(props) {
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  {props.val.name}
+                  {props.val.name} {"  "} <h2 style={{color:"red"}}>{props.val.vote}</h2>
                 </Typography>
                 <Typography variant="body2" gutterBottom>
                   <Button

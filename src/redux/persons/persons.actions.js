@@ -6,12 +6,10 @@ import {
   FETCH_USER_SUCCESS,
   FETCH_USER_FAILURE,
   RANDOMIZE_PERSONS,
-  // VOTE_STATE
+  VOTE_STATE,
 } from "./persons.types";
 
-
 // export var initialVoteState = [];
-
 
 export const fetchUsers = () => {
   return (dispatch) => {
@@ -19,7 +17,14 @@ export const fetchUsers = () => {
     axios
       .get("https://jsonplaceholder.typicode.com/users")
       .then((response) => {
-        const persons = response.data;
+        const persons = response.data.map((item, index) => {
+          return {
+            id: item.id,
+            name: item.name,
+            username: item.username,
+            vote: 0,
+          };
+        });
         //lets make here some JSON to store initial username and vote cout of each users
         dispatch(fetchUsersSuccess(persons));
       })
@@ -31,13 +36,18 @@ export const fetchUsers = () => {
 
 export const randomizeUsers = () => {
   return (dispatch) => {
-    console.log("present state", store.getState());
+    // console.log("present state", store.getState());
     dispatch(randomizePersons(store.getState().persons.users));
   };
 };
 
+export const voteState = (username) => {
+  console.log(username + " from actions");
 
-
+  return (dispatch) => {
+    dispatch(voteUserState(store.getState().persons.users));
+  };
+};
 
 export const randomizePersons = (persons) => {
   //source : https://javascript.info/task/shuffle
@@ -62,8 +72,6 @@ export const fetchUsersRequest = () => {
   };
 };
 
-
-
 export const fetchUsersSuccess = (persons) => {
   return {
     type: FETCH_USER_SUCCESS,
@@ -78,10 +86,9 @@ export const fetchUsersFailure = (err_message) => {
   };
 };
 
-
-// export const voteUserState=(voteState)=>{
-//   return{
-//     type:VOTE_STATE,
-//     payload:voteState
-//   }
-// }
+export const voteUserState = (persons) => {
+  return {
+    type: VOTE_STATE,
+    payload: persons,
+  };
+};

@@ -4,11 +4,11 @@ import {
   FETCH_USER_REQUEST,
   FETCH_USER_FAILURE,
   FETCH_USER_SUCCESS,
-  // VOTE_STATE,
+  VOTE_STATE,
 } from "./persons.types";
 
 //initial state for our vote reducer
-// const initialVoteState = [{ "": 1 }];
+
 
 // export const personsVoteReducer = (state = initialVoteState, action) => {
 //   switch (action.type) {
@@ -51,12 +51,19 @@ export const personsReducer = (state = initialPersonState, action) => {
       };
 
     case RANDOMIZE_PERSONS:
-      // console.log(state);
       return {
         loading: false,
         users: action.payload,
         error: "",
       };
+
+    case VOTE_STATE:
+      console.log(state);
+      return{
+        loading: false,
+        users: action.payload,
+        error: "",
+      }
 
     default:
       return state;

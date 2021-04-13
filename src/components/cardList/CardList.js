@@ -1,4 +1,4 @@
-import React, { useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import Button from "@material-ui/core/Button";
@@ -22,9 +22,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function UsersContainer({ userData, fetchUsers, randomizeUsers }) {
+  // const [ iniState,setIniState]=useState({})
 
-
-  const [ iniState,setIniState]=useState({})
   const classes = useStyles();
 
   useEffect(() => {
@@ -36,9 +35,9 @@ function UsersContainer({ userData, fetchUsers, randomizeUsers }) {
     randomizeUsers();
   };
 
-  const voteInitializer=(username)=>{
-    iniState[username]=0
-  }
+  // const voteInitializer=(username)=>{
+  //   iniState[username]=0
+  // }
 
   return userData.loading ? (
     <h2>Loading</h2>
@@ -56,8 +55,8 @@ function UsersContainer({ userData, fetchUsers, randomizeUsers }) {
         {userData &&
           userData.users &&
           userData.users.map((person) => {
-            voteInitializer(person.username)
-            return <CardSingle val={person} sta={iniState} />;
+            // voteInitializer(person.username)
+            return <CardSingle val={person} /* sta={iniState}  */ />;
           })}
       </div>
     </div>
@@ -67,6 +66,8 @@ function UsersContainer({ userData, fetchUsers, randomizeUsers }) {
 //redux to props
 //selectors will be a separate file in most of the larger applications
 const mapStateToProps = (state) => {
+
+  console.log(state)
   return {
     userData: state.persons,
   };

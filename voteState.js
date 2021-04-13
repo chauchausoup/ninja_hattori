@@ -205,36 +205,85 @@ const ide = {
   error: "",
 };
 
-var myMap = {};
 
-ide.users.forEach((item, index) => {
-//   myMap.set(item.username, 1);
-    myMap[item.username]=1
-});
-
-
-
-//this is the state of each users
-
-function vote(username) {
-//   myMap.set(username, myMap.get(username) + 1);
-myMap[username]++
-}
-
-function result() {
-  console.log(myMap);
-}
-
-vote("Bret");
-vote("Samantha");
-
-vote("Bret");
-vote("Samantha");
-vote("Bret");
-vote("Samantha");
-
-vote("Bret");
-vote("Samantha");
+var myMap = ide.users.map((item,index)=>{
+  return {
+    id:item.id,
+    name:item.name,
+    username:item.username,
+    vote:0
+  }
+})
 
 
-result();
+console.log(myMap)
+
+
+
+// var myMap = {};
+
+// ide.users.forEach((item, index) => {
+// //   myMap.set(item.username, 1);
+//     myMap[item.username]=1
+// });
+
+
+
+// //this is the state of each users
+
+// function vote(username) {
+// //   myMap.set(username, myMap.get(username) + 1);
+// myMap[username]++
+// }
+
+// function result() {
+//   console.log(myMap);
+// }
+
+
+// vote("Bret");
+// vote("Samantha");
+
+// vote("Bret");
+// vote("Samantha");
+// vote("Bret");
+// vote("Samantha");
+
+// vote("Bret");
+// vote("Samantha");
+
+
+// result();
+
+// [
+//   {
+//     id:1,
+//     name:"Krishna",
+//     username:"KD",
+//     vote:0
+//   },
+//   {
+//     id:1,
+//     name:"Krishna",
+//     username:"KD",
+//     vote:0
+//   },
+//   {
+//     id:1,
+//     name:"Krishna",
+//     username:"KD",
+//     vote:0
+//   },
+//   {
+//     id:1,
+//     name:"Krishna",
+//     username:"KD",
+//     vote:0
+//   },
+//   {
+//     id:1,
+//     name:"Krishna",
+//     username:"KD",
+//     vote:0
+//   },
+// ]
