@@ -1,11 +1,11 @@
 import React from 'react'
-import {initialVoteState} from '../../redux/persons/persons.actions'
+// import {initialVoteState} from '../../redux/persons/persons.actions'
 
 export default function Results() {
   
   return (
     <div>
-      {JSON.stringify(initialVoteState)}
+      <p>results here</p>
     </div>
   )
 }

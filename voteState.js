@@ -205,7 +205,7 @@ const ide = {
   error: "",
 };
 
-var myMap = new Object();
+var myMap = {};
 
 ide.users.forEach((item, index) => {
 //   myMap.set(item.username, 1);

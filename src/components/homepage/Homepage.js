@@ -1,18 +1,12 @@
 import React from "react";
 //react router dom
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import Login from "../login/Login"; //login button page or a component
 import Signup from "../signup/Signup"; // public
 import CardList from "../cardList/CardList"; //protected
-import Signout from '../signout/Signout'
-import {PrivateRoute} from '../authUtilities'
-
-
+import Signout from "../signout/Signout";
+import { PrivateRoute } from "../authUtilities";
 
 function Homepage() {
   return (
@@ -21,7 +15,7 @@ function Homepage() {
         <nav>
           <ul>
             <li>
-              <Signout/>
+              <Signout />
             </li>
             <li>
               <Link to="/login">

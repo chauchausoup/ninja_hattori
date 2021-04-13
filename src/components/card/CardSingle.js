@@ -1,6 +1,6 @@
 // this is the single component that shows the implementation of the card
 
-import React from "react";
+import React,{useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -33,11 +33,22 @@ const useStyles = makeStyles((theme) => ({
 const roboHashURL = "https://robohash.org/";
 
 export default function ComplexGrid(props) {
+
+  const[ voteState,setVoteState]=useState(props.sta)
+
+
   const classes = useStyles();
   const randomGenerator = props.val.id + new Date();
 
+
+
+
   const voteHandle = (username) => {
     console.log("there was a vote for", username);
+    voteState[username]++
+    console.log(voteState)
+   
+
   };
 
   return (
@@ -57,7 +68,7 @@ export default function ComplexGrid(props) {
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  {props.val.name}{props.val.voteCount}
+                  {props.val.name}
                 </Typography>
                 <Typography variant="body2" gutterBottom>
                   <Button

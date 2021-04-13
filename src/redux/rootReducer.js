@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux'
 
-import personsReducer from './persons/persons.reducer'
+import {personsReducer} from './persons/persons.reducer'
 
 const rootReducer = combineReducers({
-  persons: personsReducer
+  persons: personsReducer,
+  // votes:personsVoteReducer
 })
 
 export default rootReducer
