@@ -7,21 +7,6 @@ import {
   VOTE_STATE,
 } from "./persons.types";
 
-//initial state for our vote reducer
-
-// export const personsVoteReducer = (state = initialVoteState, action) => {
-//   switch (action.type) {
-//     case VOTE_STATE:
-//       return {
-//         ...state,
-
-//       };
-//     default:
-//       return state;
-//   }
-// };
-
-//initial state for our person reducer
 const initialPersonState = {
   loading: false,
   users: [],

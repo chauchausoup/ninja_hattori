@@ -3,8 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
-import Cookies from "universal-cookie";
-const cookies = new Cookies()
+// import Cookies from "universal-cookie";
+// const cookies = new Cookies();
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,23 +29,15 @@ export default function SignUp() {
     setPassword(e.target.value);
   };
 
-
-
   const signupHandle = () => {
-
-    console.log("post api value")
-    console.log(postAPIvalue());
-
-    cookies.set('credentialInfo',postAPIvalue(),{path:'/'})
+    localStorage.setItem("credentialInfo", postAPIvalue());
   };
 
-
-
   const postAPIvalue = () => {
-    return {
+    return JSON.stringify({
       username: username,
       password: password,
-    };
+    });
   };
 
   const classes = useStyles();

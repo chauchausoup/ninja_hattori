@@ -18,6 +18,10 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
     },
     textAlign: "centre",
+    display: "block",
+    "margin-left": "auto",
+    "margin-right": "auto",
+    width: "200px",
   },
 }));
 
@@ -46,7 +50,11 @@ function UsersContainer({ userData, fetchUsers, randomizeUsers }) {
   ) : (
     <div>
       <div className={classes.root}>
-        <Button variant="contained" onClick={clickRandomHandler}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={clickRandomHandler}
+        >
           Randomize
         </Button>
       </div>
@@ -76,7 +84,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchUsers: () => dispatch(fetchUsers()),
-    randomizeUsers: () => dispatch(randomizeUsers())
+    randomizeUsers: () => dispatch(randomizeUsers()),
   };
 };
 

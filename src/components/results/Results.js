@@ -7,12 +7,19 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import IconButton from "@material-ui/core/IconButton";
 
 import store from "../../redux/store/store";
 
+import DeleteOutlineTwoToneIcon from "@material-ui/icons/DeleteOutlineTwoTone";
+
+import EditDialog from './EditDialog'
+
+
+
 const useStyles = makeStyles({
   table: {
-    width: 300,
+    width: 400,
   },
 });
 
@@ -33,7 +40,8 @@ export default function BasicTable() {
         <TableHead>
           <TableRow>
             <TableCell>Username</TableCell>
-            <TableCell align="right">Votes</TableCell>
+            <TableCell>Votes</TableCell>
+            <TableCell align="right">Keys</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -42,7 +50,10 @@ export default function BasicTable() {
               <TableCell component="th" scope="row">
                 {row.username}
               </TableCell>
-              <TableCell align="right">{row.vote}</TableCell>
+              <TableCell>{row.vote}</TableCell>
+              <TableCell align="right">
+                <KeyComponents item={row.username} />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -50,3 +61,35 @@ export default function BasicTable() {
     </TableContainer>
   );
 }
+
+const KeyComponents = (props) => {
+
+  useEffect(()=>{
+    setUser(props)
+
+    console.log(props)
+  },[])
+
+  const[user,setUser]=useState('')
+
+  const deleteHandler = (e) => {
+
+    alert(`are you sure you want to delete, ${user.item}`);
+  };
+
+
+  const editHandler=(e)=>{
+
+  }
+
+  return (
+    <div>
+      <IconButton aria-label="delete">
+        <DeleteOutlineTwoToneIcon onClick={() => deleteHandler()} />
+      </IconButton>
+
+      {/* edit button */}
+      <EditDialog/>
+    </div>
+  );
+};

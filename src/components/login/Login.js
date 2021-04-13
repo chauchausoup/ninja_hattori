@@ -58,7 +58,7 @@ export default function Login() {
     // console.log("login")
     // console.log(postAPIvalue().password,postAPIvalue().username);
 
-    const getCredentialsInfo = cookies.get("credentialInfo");
+    const getCredentialsInfo = JSON.parse(localStorage.getItem("credentialInfo"));
 
     // console.log(getCredentialsInfo)
 
@@ -69,12 +69,7 @@ export default function Login() {
       : handleLoginFailure();
   };
 
-  // const postAPIvalue = () => {
-  //   return {
-  //     username: username,
-  //     password: password,
-  //   };
-  // };
+
 
   const classes = useStyles();
 

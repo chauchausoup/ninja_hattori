@@ -89,11 +89,11 @@ function ComplexGrid(props) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    userData: state.persons,
-  };
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     userData: state.persons,
+//   };
+// };
 
 //defining map dispatch to props
 const mapDispatchToProps = (dispatch) => {
@@ -102,4 +102,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ComplexGrid);
+export default connect(/* mapStateToProps,  */mapDispatchToProps)(ComplexGrid);
