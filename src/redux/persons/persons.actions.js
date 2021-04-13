@@ -10,11 +10,8 @@ import {
 } from "./persons.types";
 
 
-<<<<<<< HEAD
-=======
 // export var initialVoteState = [];
 
->>>>>>> 233ac7a12d1c6bc48c0c6d33672bd14d87117a6a
 
 export const fetchUsers = () => {
   return (dispatch) => {

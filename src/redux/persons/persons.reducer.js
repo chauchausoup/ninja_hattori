@@ -10,18 +10,6 @@ import {
 //initial state for our vote reducer
 // const initialVoteState = [{ "": 1 }];
 
-<<<<<<< HEAD
-const personsVoteReducer = (state = initialVoteState, action) => {
-  switch (action.type) {
-    case VOTE_STATE:
-      return {
-        ...state,
-      };
-    default:
-      return state;
-  }
-};
-=======
 // export const personsVoteReducer = (state = initialVoteState, action) => {
 //   switch (action.type) {
 //     case VOTE_STATE:
@@ -33,7 +21,6 @@ const personsVoteReducer = (state = initialVoteState, action) => {
 //       return state;
 //   }
 // };
->>>>>>> 233ac7a12d1c6bc48c0c6d33672bd14d87117a6a
 
 //initial state for our person reducer
 const initialPersonState = {
