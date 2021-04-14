@@ -14,7 +14,7 @@ import store from "../../redux/store/store";
 import DeleteOutlineTwoToneIcon from "@material-ui/icons/DeleteOutlineTwoTone";
 
 import EditDialog from "./EditDialog";
-import { fetchUsers, randomizeUsers } from "../../redux/index";
+import {deletingUsername } from "../../redux/index";
 import {useSelector,useDispatch} from "react-redux";
 
 const useStyles = makeStyles({
@@ -27,18 +27,18 @@ function BasicTable() {
 
   const userData=useSelector((state)=>state.persons)
 
-  const dispatcher = useDispatch()
 
 
   const [rowState, setRows] = useState([]);
 
   useEffect(() => {
-    const rows = store.getState().persons.users;
+    const rows = userData.users;
     setRows(rows);
     rows.forEach((item) => console.log(item));
-
     console.log(rows, "this is user data state");
-  }, []);
+  });
+
+
 
   const classes = useStyles();
 
@@ -73,17 +73,21 @@ function BasicTable() {
 }
 
 const KeyComponents = (props) => {
+
+  const dispatcher = useDispatch()
+
+
   useEffect(() => {
     setUser(props);
 
     console.log(props);
-  }, []);
+  });
 
   const [user, setUser] = useState("");
 
   const deleteHandler = (e) => {
     alert(`are you sure you want to delete, ${user.item}`);
-
+    dispatcher(deletingUsername(user.item))
     console.log(store.getState().persons.users + " store ");
   };
 

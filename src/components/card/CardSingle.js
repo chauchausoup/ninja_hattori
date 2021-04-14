@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
 const roboHashURL = "https://robohash.org/";
 
 function ComplexGrid(props) {
-
   const userData = useSelector((state) => state.persons);
 
   const dispatcher = useDispatch();
@@ -49,21 +48,23 @@ function ComplexGrid(props) {
 
   const [flag, setFlag] = useState(null);
 
+ 
   useEffect(() => {
-    setSingleCardState((prevValue, newValue) => {
-      console.log(prevValue, "prev");
-      console.log(newValue, "new");
-    });
-  }, []);
+    setSingleCardState(userData);
+  }, [userData]);
 
-  useEffect(() => {
-    setSingleCardState(() => props.val);
-  }, [flag]);
+
+
+
+  useEffect(()=>{
+     flag && setSingleCardState(userData);
+  },[flag,userData])
 
   const classes = useStyles();
   const randomGenerator = singleCardState.id + new Date();
 
   const voteHandle = (username) => {
+    setFlag(1);
     console.log("there was a vote for", username);
     dispatcher(voteState(username));
     // setFlag(1)

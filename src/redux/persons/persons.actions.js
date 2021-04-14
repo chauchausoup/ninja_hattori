@@ -11,22 +11,28 @@ import {
   DELETING_USERNAME,
 } from "./persons.types";
 
+
+//normalization
+const normalizeResponse=(response)=>{
+  return response.data.map((item, index) => {
+    return {
+      id: item.id,
+      name: item.name,
+      username: item.username,
+      vote: 0,
+    };
+  });
+}
+
+
 //first initial fetching of the user state
 export const fetchUsers = () => {
   return (dispatch) => {
-    dispatch(fetchUsersRequest());
+    dispatch(fetchUsersRequest(true));
     axios
       .get("https://jsonplaceholder.typicode.com/users")
       .then((response) => {
-        const persons = response.data.map((item, index) => {
-          return {
-            id: item.id,
-            name: item.name,
-            username: item.username,
-            vote: 0,
-          };
-        });
-        //lets make here some JSON to store initial username and vote cout of each users
+        const persons = normalizeResponse(response.data)
         dispatch(fetchUsersSuccess(persons));
       })
       .catch((error) => {
@@ -36,16 +42,19 @@ export const fetchUsers = () => {
 };
 
 //deleting the state of the user if someone deleted the user from the main state
-export const deletingUsername = () => {
+export const deletingUsername = (username) => {
   return (dispatch) => {
-    dispatch(deletingUsernameCaller());
+    const deletedUser={...username}
+    dispatch(deletingUsernameCaller(deletedUser));
   };
 };
 
 //editing the state of the users if some one updates / edits the username
-export const editingUsername = () => {
+export const editingUsername = (username) => {
   return (dispatch) => {
-    dispatch(editingUsernameCaller());
+
+    const editedUser={...username}
+    dispatch(editingUsernameCaller(editedUser));
   };
 };
 
@@ -102,9 +111,10 @@ export const randomizePersons = (persons) => {
   };
 };
 
-export const fetchUsersRequest = () => {
+export const fetchUsersRequest = (data) => {
   return {
     type: FETCH_USER_REQUEST,
+    payload:data
   };
 };
 
@@ -145,5 +155,3 @@ export const deletingUsernameCaller = (deletedUsers) => {
     payload: deletedUsers,
   };
 };
-
-

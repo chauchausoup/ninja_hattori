@@ -10,7 +10,14 @@ import IconButton from "@material-ui/core/IconButton";
 
 import BorderColorIcon from "@material-ui/icons/BorderColor";
 
+
+import {editingUsername } from "../../redux/index";
+import { useDispatch } from "react-redux";
+
 export default function FormDialog() {
+
+  const dispatcher = useDispatch()
+
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -19,6 +26,7 @@ export default function FormDialog() {
 
   const handleClose = () => {
     setOpen(false);
+    dispatcher(editingUsername())
   };
 
   return (

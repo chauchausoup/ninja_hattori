@@ -30,21 +30,18 @@ export const personsReducer = (state = initialPersonState, action) => {
   switch (action.type) {
     case FETCH_USER_SUCCESS:
       return {
-        loading: false,
-        users: action.payload,
-        error: "",
+        ...state,
+        users:action.payload
       };
     case FETCH_USER_REQUEST:
       return {
-        loading: true,
-        users: [],
-        error: "",
+        ...state,
+        loading:action.payload
       };
     case FETCH_USER_FAILURE:
       return {
-        loading: false,
-        users: [],
-        error: action.payload,
+        ...state,
+        error: action.payload, 
       };
 
     case RANDOMIZE_PERSONS:
