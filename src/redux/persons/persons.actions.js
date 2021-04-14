@@ -2,6 +2,8 @@ import axios from "axios";
 import store from "../store/store";
 import { personsReducer } from "./persons.reducer";
 
+import { useSelector, useDispatch } from "react-redux";
+
 import {
   FETCH_USER_REQUEST,
   FETCH_USER_SUCCESS,
@@ -43,17 +45,29 @@ export const fetchUsers = () => {
 };
 
 //deleting the state of the user if someone deleted the user from the main state
-export const deletingUsername = (username) => {
+export const deletingUsername = (userData, username) => {
+  const deletedUser = userData.users.filter(
+    (item) => item.username !== username
+  );
+
   return (dispatch) => {
-    const deletedUser = { ...username };
     dispatch(deletingUsernameCaller(deletedUser));
   };
 };
 
 //editing the state of the users if some one updates / edits the username
-export const editingUsername = (username) => {
+export const editingUsername = (userData, username, editedUsername) => {
+  console.log(username, "username");
+  console.log(editedUsername, "editedUsername haha");
+  const editedUser = userData.users.map((item, index) => {
+    if(item.username === username){
+      item['username']=editedUsername
+    }
+    return item;
+  });
+  console.log(editedUser,"edited username")
+
   return (dispatch) => {
-    const editedUser = { ...username };
     dispatch(editingUsernameCaller(editedUser));
   };
 };
@@ -67,19 +81,13 @@ export const randomizeUsers = () => {
 };
 
 //updating users state after voting
-export const voteState = (userData,username) => {
-  
-  const somePayload=userData.map((item,index)=>{
-    if(item.username === username){
-      item.vote++
+export const voteState = (userData, username) => {
+  const somePayload = userData.map((item, index) => {
+    if (item.username === username) {
+      item.vote++;
     }
     return item;
-
-  })
-
- 
-  
- 
+  });
 
   return (dispatch) => {
     dispatch(voteUserState(somePayload));

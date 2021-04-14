@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -12,13 +12,21 @@ import BorderColorIcon from "@material-ui/icons/BorderColor";
 
 
 import {editingUsername } from "../../redux/index";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 
-export default function FormDialog() {
+export default function FormDialog(props) {
 
   const dispatcher = useDispatch()
+  const userData = useSelector((state) => state.persons);
+  
 
   const [open, setOpen] = React.useState(false);
+  const [editedUsername,setEUsername]=useState('')
+  const [parentUser,setParentUser]=useState('')
+
+  useEffect(()=>{
+    setParentUser(props.username)
+  },[])
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -26,8 +34,13 @@ export default function FormDialog() {
 
   const handleClose = () => {
     setOpen(false);
-    dispatcher(editingUsername())
+    dispatcher(editingUsername(userData,parentUser,editedUsername))
   };
+
+  const handleEditChange=(e)=>{
+    e.preventDefault()
+    setEUsername(e.target.value)
+  }
 
   return (
     <div>
@@ -51,6 +64,7 @@ export default function FormDialog() {
             label="Username"
             type="text"
             fullWidth
+            onChange={handleEditChange}
           />
         </DialogContent>
         <DialogActions>

@@ -9,13 +9,13 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
 
-import store from "../../redux/store/store";
+// import store from "../../redux/store/store";
 
 import DeleteOutlineTwoToneIcon from "@material-ui/icons/DeleteOutlineTwoTone";
 
 import EditDialog from "./EditDialog";
-import {deletingUsername } from "../../redux/index";
-import {useSelector,useDispatch} from "react-redux";
+import { deletingUsername } from "../../redux/index";
+import { useSelector, useDispatch } from "react-redux";
 
 const useStyles = makeStyles({
   table: {
@@ -24,21 +24,17 @@ const useStyles = makeStyles({
 });
 
 function BasicTable() {
-
-  const userData=useSelector((state)=>state.persons)
-
-
+  const userData = useSelector((state) => state.persons);
+  console.log(userData, "first user data");
 
   const [rowState, setRows] = useState([]);
 
   useEffect(() => {
     const rows = userData.users;
     setRows(rows);
-    rows.forEach((item) => console.log(item));
     console.log(rows, "this is user data state");
-  });
-
-
+    console.log(rowState, "row state data");
+  }, []);
 
   const classes = useStyles();
 
@@ -73,22 +69,20 @@ function BasicTable() {
 }
 
 const KeyComponents = (props) => {
+  const dispatcher = useDispatch();
+  const userData = useSelector((state) => state.persons);
 
-  const dispatcher = useDispatch()
-
-
-  useEffect(() => {
-    setUser(props);
-
-    console.log(props);
-  });
 
   const [user, setUser] = useState("");
 
+  useEffect(() => {
+    setUser(props.item);
+  }, [props.item]);
+
   const deleteHandler = (e) => {
-    alert(`are you sure you want to delete, ${user.item}`);
-    dispatcher(deletingUsername(user.item))
-    console.log(store.getState().persons.users + " store ");
+    // console.log(user)
+    alert(`deleting ${user} ...`);
+    dispatcher(deletingUsername(userData,user));
   };
 
   return (
@@ -98,12 +92,10 @@ const KeyComponents = (props) => {
       </IconButton>
 
       {/* edit button */}
-      <EditDialog />
+      <EditDialog username={user} />
     </div>
   );
 };
-
-
 
 //we need to connect these two functions with our react components
 //for that we use connect HOC from react redux library
