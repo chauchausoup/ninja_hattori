@@ -1,6 +1,5 @@
 // this is the single component that shows the implementation of the card
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -9,9 +8,9 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 import Button from "@material-ui/core/Button";
 
 import { voteState } from "../../redux/index";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-import store from "../../redux/store/store";
+// import store from "../../redux/store/store";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,16 +37,39 @@ const useStyles = makeStyles((theme) => ({
 const roboHashURL = "https://robohash.org/";
 
 function ComplexGrid(props) {
-  // const [voteStateSingle, setVoteState] = useState(props.val.vote);
+
+  const userData = useSelector((state) => state.persons);
+
+  const dispatcher = useDispatch();
+
+  // // const [voteStateSingle, setVoteState] = useState(props.val.vote);
+  // console.log(props)
+
+  const [singleCardState, setSingleCardState] = useState({});
+
+  const [flag, setFlag] = useState(null);
+
+  useEffect(() => {
+    setSingleCardState((prevValue, newValue) => {
+      console.log(prevValue, "prev");
+      console.log(newValue, "new");
+    });
+  }, []);
+
+  useEffect(() => {
+    setSingleCardState(() => props.val);
+  }, [flag]);
 
   const classes = useStyles();
-  const randomGenerator = props.val.id + new Date();
+  const randomGenerator = singleCardState.id + new Date();
 
   const voteHandle = (username) => {
     console.log("there was a vote for", username);
+    dispatcher(voteState(username));
+    // setFlag(1)
     //  setVoteState(prev=>prev+1)
     // console.log(voteStateSingle)
-    voteState(username);
+
     // console.log(store.getState())
   };
 
@@ -68,16 +90,16 @@ function ComplexGrid(props) {
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  {props.val.name} {"  "}{" "}
-                  <h2 style={{ color: "red" }}>{props.val.vote}</h2>
+                  {singleCardState.name} {"  "}{" "}
+                  <h2 style={{ color: "red" }}>{singleCardState.vote}</h2>
                 </Typography>
                 <Typography variant="body2" gutterBottom>
                   <Button
                     variant="contained"
                     color="secondary"
-                    onClick={() => voteHandle(props.val.username)}
+                    onClick={() => voteHandle(singleCardState.username)}
                   >
-                    Vote {props.val.username}
+                    Vote {singleCardState.username}
                   </Button>
                 </Typography>
               </Grid>
@@ -89,17 +111,4 @@ function ComplexGrid(props) {
   );
 }
 
-// const mapStateToProps = (state) => {
-//   return {
-//     userData: state.persons,
-//   };
-// };
-
-//defining map dispatch to props
-const mapDispatchToProps = (dispatch) => {
-  return {
-    voteState: (username) => dispatch(voteState(username)),
-  };
-};
-
-export default connect(/* mapStateToProps,  */mapDispatchToProps)(ComplexGrid);
+export default ComplexGrid;

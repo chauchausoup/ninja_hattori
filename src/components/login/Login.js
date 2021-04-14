@@ -3,11 +3,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
-import Cookies from "universal-cookie";
+// import Cookies from "universal-cookie";
 import { useHistory, useLocation } from "react-router";
 import { useAuth } from "../authUtilities";
 
-const cookies = new Cookies();
+// const cookies = new Cookies();
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,8 +45,6 @@ export default function Login() {
 
   const handleLoginSuccess = () => {
     console.log("login success");
-    //clear text box values
-    //got to /user-list page
     login();
   };
 

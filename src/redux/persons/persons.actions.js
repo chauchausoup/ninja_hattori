@@ -7,10 +7,11 @@ import {
   FETCH_USER_FAILURE,
   RANDOMIZE_PERSONS,
   VOTE_STATE,
+  EDITING_USERNAME,
+  DELETING_USERNAME,
 } from "./persons.types";
 
-// export var initialVoteState = [];
-
+//first initial fetching of the user state
 export const fetchUsers = () => {
   return (dispatch) => {
     dispatch(fetchUsersRequest());
@@ -34,14 +35,30 @@ export const fetchUsers = () => {
   };
 };
 
+//deleting the state of the user if someone deleted the user from the main state
+export const deletingUsername = () => {
+  return (dispatch) => {
+    dispatch(deletingUsernameCaller());
+  };
+};
+
+//editing the state of the users if some one updates / edits the username
+export const editingUsername = () => {
+  return (dispatch) => {
+    dispatch(editingUsernameCaller());
+  };
+};
+
+//update user state after randomizing
 export const randomizeUsers = () => {
   return (dispatch) => {
-    // console.log("present state", store.getState());
+    console.log("present state", store.getState());
     dispatch(randomizePersons(store.getState().persons.users));
   };
 };
 
-export const voteState =  (username) => {
+//updating users state after voting
+export const voteState = (username) => {
   console.log(username + " from actions");
   const priorUsers = store.getState().persons.users;
 
@@ -58,41 +75,30 @@ export const voteState =  (username) => {
   //     : item
   // );
 
-var somePayload = priorUsers.map((item, index) =>
- 
-
-  (item.username===username) ? {
-    id: item.id,
-    name: item.name,
-    username: item.username,
-    vote: item.vote++,
-  }: item
-)
-
-
+  var somePayload = priorUsers.map((item, index) =>
+    item.username === username
+      ? {
+          id: item.id,
+          name: item.name,
+          username: item.username,
+          vote: item.vote++,
+        }
+      : item
+  );
 
   console.log(somePayload);
 
   return (dispatch) => {
     dispatch(voteUserState(somePayload));
-   
   };
 };
 
 export const randomizePersons = (persons) => {
   //source : https://javascript.info/task/shuffle
 
-  function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  }
-
   return {
     type: RANDOMIZE_PERSONS,
-    payload: shuffle(persons),
+    payload: persons,
   };
 };
 
@@ -125,3 +131,19 @@ export const voteUserState = (somePayload) => {
     payload: somePayload,
   };
 };
+
+export const editingUsernameCaller = (editedUsers) => {
+  return {
+    type: EDITING_USERNAME,
+    payload: editedUsers,
+  };
+};
+
+export const deletingUsernameCaller = (deletedUsers) => {
+  return {
+    type: DELETING_USERNAME,
+    payload: deletedUsers,
+  };
+};
+
+

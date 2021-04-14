@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 
 import CardSingle from "../card/CardSingle";
 
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 // import { updatePersons } from "../../redux/index";
 import { fetchUsers, randomizeUsers } from "../../redux/index";
@@ -25,18 +25,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function UsersContainer({ userData, fetchUsers, randomizeUsers }) {
+function UsersContainer() {
+  const userData = useSelector((state) => state.persons);
+  const dispatcher = useDispatch();
   // const [ iniState,setIniState]=useState({})
 
   const classes = useStyles();
 
   useEffect(() => {
-    fetchUsers();
+    dispatcher(fetchUsers());
   }, []);
 
   const clickRandomHandler = () => {
     console.log("randomizer called");
-    randomizeUsers();
+    dispatcher(randomizeUsers());
   };
 
   // const voteInitializer=(username)=>{
@@ -63,8 +65,7 @@ function UsersContainer({ userData, fetchUsers, randomizeUsers }) {
         {userData &&
           userData.users &&
           userData.users.map((person) => {
-            // voteInitializer(person.username)
-            return <CardSingle val={person} /* sta={iniState}  */ />;
+            return <CardSingle val={person} />;
           })}
       </div>
     </div>
@@ -73,22 +74,14 @@ function UsersContainer({ userData, fetchUsers, randomizeUsers }) {
 
 //redux to props
 //selectors will be a separate file in most of the larger applications
-const mapStateToProps = (state) => {
-  console.log(state);
-  return {
-    userData: state.persons,
-  };
-};
-
-//defining map dispatch to props
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchUsers: () => dispatch(fetchUsers()),
-    randomizeUsers: () => dispatch(randomizeUsers()),
-  };
-};
+// const mapStateToProps = (state) => {
+//   console.log(state);
+//   return {
+//     userData: state.persons,
+//   };
+// };
 
 //we need to connect these two functions with our react components
 //for that we use connect HOC from react redux library
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+export default UsersContainer;
