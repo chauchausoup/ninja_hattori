@@ -42,9 +42,7 @@ function UsersContainer() {
     console.log(cardStates,"cardstates")
   })
 
-  useEffect(() => {
-    dispatcher(fetchUsers());
-  },[]);
+ 
 
   const clickRandomHandler = () => {
     dispatcher(randomizeUsers());
