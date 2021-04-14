@@ -29,6 +29,7 @@ export const personsReducer = (state = initialPersonState, action) => {
 
   switch (action.type) {
     case FETCH_USER_SUCCESS:
+      console.log(action.payload,"action payload")
       return {
         ...state,
         users:action.payload

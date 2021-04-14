@@ -50,15 +50,16 @@ function ComplexGrid(props) {
 
  
   useEffect(() => {
-    setSingleCardState(userData);
-  }, [userData]);
+  
+    setSingleCardState(props.val);
+  });
 
 
 
 
   useEffect(()=>{
-     flag && setSingleCardState(userData);
-  },[flag,userData])
+     flag && setSingleCardState(props.val);
+  },[flag])
 
   const classes = useStyles();
   const randomGenerator = singleCardState.id + new Date();
@@ -66,7 +67,7 @@ function ComplexGrid(props) {
   const voteHandle = (username) => {
     setFlag(1);
     console.log("there was a vote for", username);
-    dispatcher(voteState(username));
+    dispatcher(voteState(userData.users,username));
     // setFlag(1)
     //  setVoteState(prev=>prev+1)
     // console.log(voteStateSingle)

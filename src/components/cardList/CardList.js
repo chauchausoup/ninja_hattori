@@ -26,18 +26,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function UsersContainer() {
+
+
+  const [cardStates,setCardStates]=useState([])
+
   const userData = useSelector((state) => state.persons);
   const dispatcher = useDispatch();
   // const [ iniState,setIniState]=useState({})
 
   const classes = useStyles();
 
+
+  useEffect(()=>{
+    setCardStates(userData.users)
+    console.log(cardStates,"cardstates")
+  })
+
   useEffect(() => {
     dispatcher(fetchUsers());
-  }, []);
+  },[]);
 
   const clickRandomHandler = () => {
-    console.log("randomizer called");
     dispatcher(randomizeUsers());
   };
 
@@ -45,10 +54,10 @@ function UsersContainer() {
   //   iniState[username]=0
   // }
 
-  return userData.loading ? (
+  return cardStates.loading ? (
     <h2>Loading</h2>
-  ) : userData.error ? (
-    <h2>{userData.error}</h2>
+  ) : cardStates.error ? (
+    <h2>{cardStates.error}</h2>
   ) : (
     <div>
       <div className={classes.root}>
@@ -62,9 +71,8 @@ function UsersContainer() {
       </div>
 
       <div className="userList">
-        {userData &&
-          userData.users &&
-          userData.users.map((person) => {
+        {cardStates &&
+          cardStates.map((person) => {
             return <CardSingle val={person} />;
           })}
       </div>

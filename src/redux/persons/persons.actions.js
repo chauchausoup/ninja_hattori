@@ -1,5 +1,6 @@
 import axios from "axios";
 import store from "../store/store";
+import { personsReducer } from "./persons.reducer";
 
 import {
   FETCH_USER_REQUEST,
@@ -11,10 +12,9 @@ import {
   DELETING_USERNAME,
 } from "./persons.types";
 
-
 //normalization
-const normalizeResponse=(response)=>{
-  return response.data.map((item, index) => {
+const normalizeResponse = (response) => {
+  const norm = response.map((item, index) => {
     return {
       id: item.id,
       name: item.name,
@@ -22,8 +22,8 @@ const normalizeResponse=(response)=>{
       vote: 0,
     };
   });
-}
-
+  return norm;
+};
 
 //first initial fetching of the user state
 export const fetchUsers = () => {
@@ -32,7 +32,8 @@ export const fetchUsers = () => {
     axios
       .get("https://jsonplaceholder.typicode.com/users")
       .then((response) => {
-        const persons = normalizeResponse(response.data)
+        const persons = normalizeResponse(response.data);
+        console.log(persons + " pers");
         dispatch(fetchUsersSuccess(persons));
       })
       .catch((error) => {
@@ -44,7 +45,7 @@ export const fetchUsers = () => {
 //deleting the state of the user if someone deleted the user from the main state
 export const deletingUsername = (username) => {
   return (dispatch) => {
-    const deletedUser={...username}
+    const deletedUser = { ...username };
     dispatch(deletingUsernameCaller(deletedUser));
   };
 };
@@ -52,8 +53,7 @@ export const deletingUsername = (username) => {
 //editing the state of the users if some one updates / edits the username
 export const editingUsername = (username) => {
   return (dispatch) => {
-
-    const editedUser={...username}
+    const editedUser = { ...username };
     dispatch(editingUsernameCaller(editedUser));
   };
 };
@@ -67,35 +67,19 @@ export const randomizeUsers = () => {
 };
 
 //updating users state after voting
-export const voteState = (username) => {
-  console.log(username + " from actions");
-  const priorUsers = store.getState().persons.users;
+export const voteState = (userData,username) => {
+  
+  const somePayload=userData.map((item,index)=>{
+    if(item.username === username){
+      item.vote++
+    }
+    return item;
 
-  // var somePayload = [];
+  })
 
-  // var somePayload = priorUsers.map((item, index) =>
-  //   item.username === username
-  //     ? {
-  //         id: item.id,
-  //         name: item.name,
-  //         username: item.username,
-  //         vote: item.vote++,
-  //       }
-  //     : item
-  // );
-
-  var somePayload = priorUsers.map((item, index) =>
-    item.username === username
-      ? {
-          id: item.id,
-          name: item.name,
-          username: item.username,
-          vote: item.vote++,
-        }
-      : item
-  );
-
-  console.log(somePayload);
+ 
+  
+ 
 
   return (dispatch) => {
     dispatch(voteUserState(somePayload));
@@ -114,7 +98,7 @@ export const randomizePersons = (persons) => {
 export const fetchUsersRequest = (data) => {
   return {
     type: FETCH_USER_REQUEST,
-    payload:data
+    payload: data,
   };
 };
 
