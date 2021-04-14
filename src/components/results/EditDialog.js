@@ -1,4 +1,6 @@
 import React,{useState,useEffect} from "react";
+
+//MUI
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -26,7 +28,7 @@ export default function FormDialog(props) {
 
   useEffect(()=>{
     setParentUser(props.username)
-  },[])
+  })
 
   const handleClickOpen = () => {
     setOpen(true);

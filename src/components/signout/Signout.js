@@ -4,8 +4,6 @@ import { useHistory } from "react-router";
 
 import { useAuth } from "../authUtilities";
 
-// import Cookies from 'universal-cookie'
-// const cookies = new Cookies()
 const getCredentialsInfo = JSON.parse(localStorage.getItem("credentialInfo"));
 
 export default function Signout() {

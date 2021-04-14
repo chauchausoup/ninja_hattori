@@ -8,13 +8,8 @@ import Signup from "./components/signup/Signup";
 import Results from "./components/results/Results";
 import CardList from "./components/cardList/CardList";
 
-
-
 import { Provider } from "react-redux";
 import store from "./redux/store/store";
-
-
-// import Example from './components/reactRouterExample/reactRouterRedirect'
 
 //react router dom
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";

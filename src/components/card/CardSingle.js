@@ -1,5 +1,9 @@
-// this is the single component that shows the implementation of the card
+/* this is the single component that shows the implementation of the card
+ */
+
 import React, { useState, useEffect } from "react";
+
+//material ui
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -7,10 +11,9 @@ import Typography from "@material-ui/core/Typography";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Button from "@material-ui/core/Button";
 
+//redux
 import { voteState } from "../../redux/index";
 import { useSelector, useDispatch } from "react-redux";
-
-// import store from "../../redux/store/store";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,41 +41,25 @@ const roboHashURL = "https://robohash.org/";
 
 function ComplexGrid(props) {
   const userData = useSelector((state) => state.persons);
-
   const dispatcher = useDispatch();
 
-  // // const [voteStateSingle, setVoteState] = useState(props.val.vote);
-  // console.log(props)
-
   const [singleCardState, setSingleCardState] = useState({});
-
   const [flag, setFlag] = useState(null);
 
- 
   useEffect(() => {
-  
     setSingleCardState(props.val);
   });
 
-
-
-
-  useEffect(()=>{
-     flag && setSingleCardState(props.val);
-  },[flag])
+  useEffect(() => {
+    flag && setSingleCardState(props.val);
+  }, [flag]);
 
   const classes = useStyles();
-  const randomGenerator = singleCardState.id + new Date();
+  const randomGenerator = Math.random() + new Date();
 
   const voteHandle = (username) => {
     setFlag(1);
-    console.log("there was a vote for", username);
-    dispatcher(voteState(userData.users,username));
-    // setFlag(1)
-    //  setVoteState(prev=>prev+1)
-    // console.log(voteStateSingle)
-
-    // console.log(store.getState())
+    dispatcher(voteState(userData.users, username));
   };
 
   return (

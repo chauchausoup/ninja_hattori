@@ -3,11 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
-// import Cookies from "universal-cookie";
 import { useHistory, useLocation } from "react-router";
 import { useAuth } from "../authUtilities";
-
-// const cookies = new Cookies();
 
 import { fetchUsers } from "../../redux/index";
 
@@ -60,14 +57,9 @@ export default function Login() {
   };
 
   const loginHandle = () => {
-    // console.log("login")
-    // console.log(postAPIvalue().password,postAPIvalue().username);
-
     const getCredentialsInfo = JSON.parse(
       localStorage.getItem("credentialInfo")
     );
-
-    // console.log(getCredentialsInfo)
 
     getCredentialsInfo &&
     getCredentialsInfo.username === username &&

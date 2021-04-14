@@ -1,8 +1,8 @@
 import axios from "axios";
 import store from "../store/store";
-import { personsReducer } from "./persons.reducer";
+// import { personsReducer } from "./persons.reducer";
 
-import { useSelector, useDispatch } from "react-redux";
+// import { useSelector, useDispatch } from "react-redux";
 
 import {
   FETCH_USER_REQUEST,
@@ -35,7 +35,7 @@ export const fetchUsers = () => {
       .get("https://jsonplaceholder.typicode.com/users")
       .then((response) => {
         const persons = normalizeResponse(response.data);
-        console.log(persons + " pers");
+        // console.log(persons + " pers");
         dispatch(fetchUsersSuccess(persons));
       })
       .catch((error) => {
@@ -56,16 +56,18 @@ export const deletingUsername = (userData, username) => {
 };
 
 //editing the state of the users if some one updates / edits the username
-export const editingUsername = (userData, username, editedUsername) => {
-  console.log(username, "username");
-  console.log(editedUsername, "editedUsername haha");
-  const editedUser = userData.users.map((item, index) => {
-    if(item.username === username){
+export const editingUsername = (userData, parentUser, editedUsername) => {
+  // console.log(parentUser, "username");
+  // console.log(userData," user data")
+
+  // console.log(editedUsername, "editedUsername haha");
+  let editedUser = userData.users.map((item, index) => {
+    if(item.username === parentUser){
       item['username']=editedUsername
     }
     return item;
   });
-  console.log(editedUser,"edited username")
+
 
   return (dispatch) => {
     dispatch(editingUsernameCaller(editedUser));
@@ -75,7 +77,6 @@ export const editingUsername = (userData, username, editedUsername) => {
 //update user state after randomizing
 export const randomizeUsers = () => {
   return (dispatch) => {
-    console.log("present state", store.getState());
     dispatch(randomizePersons(store.getState().persons.users));
   };
 };
@@ -111,7 +112,6 @@ export const fetchUsersRequest = (data) => {
 };
 
 export const fetchUsersSuccess = (persons) => {
-  // console.log(JSON.stringify(persons) +  "  from success")
   return {
     type: FETCH_USER_SUCCESS,
     payload: persons,
@@ -126,7 +126,6 @@ export const fetchUsersFailure = (err_message) => {
 };
 
 export const voteUserState = (somePayload) => {
-  console.log(JSON.stringify(somePayload) + " some payload from payload");
 
   return {
     type: VOTE_STATE,

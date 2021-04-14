@@ -7,8 +7,7 @@ import CardSingle from "../card/CardSingle";
 
 import { useSelector, useDispatch } from "react-redux";
 
-// import { updatePersons } from "../../redux/index";
-import { fetchUsers, randomizeUsers } from "../../redux/index";
+import { randomizeUsers } from "../../redux/index";
 
 import "./CardList.css";
 
@@ -32,7 +31,6 @@ function UsersContainer() {
 
   const userData = useSelector((state) => state.persons);
   const dispatcher = useDispatch();
-  // const [ iniState,setIniState]=useState({})
 
   const classes = useStyles();
 
@@ -42,15 +40,9 @@ function UsersContainer() {
     console.log(cardStates,"cardstates")
   })
 
- 
-
   const clickRandomHandler = () => {
     dispatcher(randomizeUsers());
   };
-
-  // const voteInitializer=(username)=>{
-  //   iniState[username]=0
-  // }
 
   return cardStates.loading ? (
     <h2>Loading</h2>
@@ -77,17 +69,5 @@ function UsersContainer() {
     </div>
   );
 }
-
-//redux to props
-//selectors will be a separate file in most of the larger applications
-// const mapStateToProps = (state) => {
-//   console.log(state);
-//   return {
-//     userData: state.persons,
-//   };
-// };
-
-//we need to connect these two functions with our react components
-//for that we use connect HOC from react redux library
 
 export default UsersContainer;

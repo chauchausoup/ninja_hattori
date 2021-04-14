@@ -6,7 +6,7 @@ import {
   FETCH_USER_SUCCESS,
   VOTE_STATE,
   EDITING_USERNAME,
-  DELETING_USERNAME
+  DELETING_USERNAME,
 } from "./persons.types";
 
 const initialPersonState = {
@@ -16,7 +16,6 @@ const initialPersonState = {
 };
 
 export const personsReducer = (state = initialPersonState, action) => {
-
   //shuffling function for randomizing the user array
 
   function shuffle(array) {
@@ -29,20 +28,20 @@ export const personsReducer = (state = initialPersonState, action) => {
 
   switch (action.type) {
     case FETCH_USER_SUCCESS:
-      console.log(action.payload,"action payload")
+      // console.log(action.payload,"action payload")
       return {
         ...state,
-        users:action.payload
+        users: action.payload,
       };
     case FETCH_USER_REQUEST:
       return {
         ...state,
-        loading:action.payload
+        loading: action.payload,
       };
     case FETCH_USER_FAILURE:
       return {
         ...state,
-        error: action.payload, 
+        error: action.payload,
       };
 
     case RANDOMIZE_PERSONS:
@@ -59,18 +58,18 @@ export const personsReducer = (state = initialPersonState, action) => {
         error: "",
       };
     case EDITING_USERNAME:
-      return{
+      return {
         loading: true,
         users: action.payload,
         error: "",
-      }
-    
+      };
+
     case DELETING_USERNAME:
-      return{
+      return {
         loading: true,
         users: action.payload,
         error: "",
-      }
+      };
 
     default:
       return state;

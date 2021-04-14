@@ -9,7 +9,6 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
 
-// import store from "../../redux/store/store";
 
 import DeleteOutlineTwoToneIcon from "@material-ui/icons/DeleteOutlineTwoTone";
 
@@ -25,7 +24,6 @@ const useStyles = makeStyles({
 
 function BasicTable() {
   const userData = useSelector((state) => state.persons);
-  console.log(userData, "first user data");
 
   const [rowState, setRows] = useState([]);
 
@@ -80,8 +78,8 @@ const KeyComponents = (props) => {
   }, [props.item]);
 
   const deleteHandler = (e) => {
-    // console.log(user)
     alert(`deleting ${user} ...`);
+
     dispatcher(deletingUsername(userData,user));
   };
 
