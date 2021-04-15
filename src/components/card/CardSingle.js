@@ -48,11 +48,11 @@ function ComplexGrid(props) {
 
   useEffect(() => {
     setSingleCardState(props.val);
-  });
+  },[props.val]);
 
   useEffect(() => {
     flag && setSingleCardState(props.val);
-  }, [flag]);
+  }, [flag,props.val]);
 
   const classes = useStyles();
   const randomGenerator = Math.random() + new Date();
@@ -80,7 +80,7 @@ function ComplexGrid(props) {
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
                   {singleCardState.name} {"  "}{" "}
-                  <h2 style={{ color: "red" }}>{singleCardState.vote}</h2>
+                  <p style={{ color: "red" }}>{singleCardState.vote}</p>
                 </Typography>
                 <Typography variant="body2" gutterBottom>
                   <Button

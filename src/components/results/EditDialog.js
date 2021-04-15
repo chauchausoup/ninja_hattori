@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 
 //MUI
 import Button from "@material-ui/core/Button";
@@ -12,23 +12,20 @@ import IconButton from "@material-ui/core/IconButton";
 
 import BorderColorIcon from "@material-ui/icons/BorderColor";
 
-
-import {editingUsername } from "../../redux/index";
-import { useDispatch,useSelector } from "react-redux";
+import { editingUsername } from "../../redux/index";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function FormDialog(props) {
-
-  const dispatcher = useDispatch()
+  const dispatcher = useDispatch();
   const userData = useSelector((state) => state.persons);
-  
 
   const [open, setOpen] = React.useState(false);
-  const [editedUsername,setEUsername]=useState('')
-  const [parentUser,setParentUser]=useState('')
+  const [editedUsername, setEUsername] = useState("");
+  const [parentUser, setParentUser] = useState("");
 
-  useEffect(()=>{
-    setParentUser(props.username)
-  })
+  useEffect(() => {
+    setParentUser(props.username);
+  }, [props.username]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -36,13 +33,13 @@ export default function FormDialog(props) {
 
   const handleClose = () => {
     setOpen(false);
-    dispatcher(editingUsername(userData,parentUser,editedUsername))
+    dispatcher(editingUsername(userData, parentUser, editedUsername));
   };
 
-  const handleEditChange=(e)=>{
-    e.preventDefault()
-    setEUsername(e.target.value)
-  }
+  const handleEditChange = (e) => {
+    e.preventDefault();
+    setEUsername(e.target.value);
+  };
 
   return (
     <div>
@@ -56,9 +53,7 @@ export default function FormDialog(props) {
       >
         <DialogTitle id="form-dialog-title">Edit username here:</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-           Enter a username
-          </DialogContentText>
+          <DialogContentText>Enter a username</DialogContentText>
           <TextField
             autoFocus
             margin="dense"

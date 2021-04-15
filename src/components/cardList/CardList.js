@@ -37,15 +37,15 @@ function UsersContainer() {
 
   useEffect(()=>{
     setCardStates(userData.users)
-    console.log(cardStates,"cardstates")
-  })
+    // console.log(cardStates,"cardstates")
+  },[userData.users])
 
   const clickRandomHandler = () => {
     dispatcher(randomizeUsers());
   };
 
   return cardStates.loading ? (
-    <h2>Loading</h2>
+    <p>Loading</p>
   ) : cardStates.error ? (
     <h2>{cardStates.error}</h2>
   ) : (
@@ -63,7 +63,7 @@ function UsersContainer() {
       <div className="userList">
         {cardStates &&
           cardStates.map((person) => {
-            return <CardSingle val={person} />;
+            return <CardSingle val={person} key={person.id} />;
           })}
       </div>
     </div>

@@ -9,7 +9,6 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
 
-
 import DeleteOutlineTwoToneIcon from "@material-ui/icons/DeleteOutlineTwoTone";
 
 import EditDialog from "./EditDialog";
@@ -30,9 +29,7 @@ function BasicTable() {
   useEffect(() => {
     const rows = userData.users;
     setRows(rows);
-    console.log(rows, "this is user data state");
-    console.log(rowState, "row state data");
-  }, []);
+  }, [userData.users]);
 
   const classes = useStyles();
 
@@ -70,7 +67,6 @@ const KeyComponents = (props) => {
   const dispatcher = useDispatch();
   const userData = useSelector((state) => state.persons);
 
-
   const [user, setUser] = useState("");
 
   useEffect(() => {
@@ -80,13 +76,13 @@ const KeyComponents = (props) => {
   const deleteHandler = (e) => {
     alert(`deleting ${user} ...`);
 
-    dispatcher(deletingUsername(userData,user));
+    dispatcher(deletingUsername(userData, user));
   };
 
   return (
     <div>
-      <IconButton aria-label="delete">
-        <DeleteOutlineTwoToneIcon onClick={() => deleteHandler()} />
+      <IconButton aria-label="delete"  onClick={() => deleteHandler()} >
+        <DeleteOutlineTwoToneIcon/>
       </IconButton>
 
       {/* edit button */}
