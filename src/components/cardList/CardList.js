@@ -8,7 +8,7 @@ import CardSingle from "../card/CardSingle";
 
 import { useSelector, useDispatch } from "react-redux";
 
-import { randomizeUsers } from "../../redux/index";
+import { randomizeUsers,randomizeImages } from "../../redux/index";
 
 import "./CardList.css";
 
@@ -40,8 +40,9 @@ function CardList() {
     setCardStates(userData.users);
   }, [userData.users]);
 
-  const clickRandomHandler = () => {
+  const clickRandomHandler = (cardStates) => {
     dispatcher(randomizeUsers());
+    dispatcher(randomizeImages(cardStates))
   };
 
   return cardStates.loading ? (
@@ -54,7 +55,7 @@ function CardList() {
         <Button
           variant="contained"
           color="primary"
-          onClick={clickRandomHandler}
+          onClick={()=>clickRandomHandler(cardStates)}
         >
           Randomize
         </Button>

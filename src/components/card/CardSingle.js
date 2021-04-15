@@ -74,7 +74,7 @@ function CardSingle(props) {
               <img
                 className={classes.img}
                 alt="complex"
-                src={roboHashURL + randomGenerator}
+                src={singleCardState.image}
               />
             </ButtonBase>
           </Grid>

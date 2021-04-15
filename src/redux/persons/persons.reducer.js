@@ -6,28 +6,18 @@ import {
   FETCH_USER_SUCCESS,
   VOTE_STATE,
   EDITING_USERNAME,
-  DELETING_USERNAME
+  DELETING_USERNAME,
+  RANDOMIZE_IMAGES
+
 } from "./persons.types";
 
 //combine reducer from redux
-// import {combineReducer} from 'redux'
-
-
 
 const initialPersonState = {
   loading: false,
   users: [],
   error: "",
 };
-
-// const initialImageState={
-//   loading:false,
-//   images:[],
-//   error:""
-// }
-
-
-
 
 export const personsReducer = (state = initialPersonState, action) => {
   //shuffling function for randomizing the user array
@@ -65,6 +55,13 @@ export const personsReducer = (state = initialPersonState, action) => {
         error: "",
       };
 
+    case RANDOMIZE_IMAGES:
+        return{
+          loading:false,
+          users:action.payload,
+          error:""
+
+        }
     case VOTE_STATE:
       return {
         loading: false,

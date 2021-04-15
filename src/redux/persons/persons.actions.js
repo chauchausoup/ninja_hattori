@@ -1,8 +1,5 @@
 import axios from "axios";
 import store from "../store/store";
-// import { personsReducer } from "./persons.reducer";
-
-// import { useSelector, useDispatch } from "react-redux";
 
 import {
   FETCH_USER_REQUEST,
@@ -12,6 +9,7 @@ import {
   VOTE_STATE,
   EDITING_USERNAME,
   DELETING_USERNAME,
+  RANDOMIZE_IMAGES,
 } from "./persons.types";
 
 //normalization
@@ -22,11 +20,13 @@ const normalizeResponse = (response) => {
       name: item.name,
       username: item.username,
       vote: 0,
+      image: `https://robohash.org/${item.id}`,
     };
   });
   return norm;
 };
 
+// const roboHashURL = "https://robohash.org/";
 //first initial fetching of the user state
 export const fetchUsers = () => {
   return (dispatch) => {
@@ -35,7 +35,6 @@ export const fetchUsers = () => {
       .get("https://jsonplaceholder.typicode.com/users")
       .then((response) => {
         const persons = normalizeResponse(response.data);
-        // console.log(persons + " pers");
         dispatch(fetchUsersSuccess(persons));
       })
       .catch((error) => {
@@ -44,33 +43,17 @@ export const fetchUsers = () => {
   };
 };
 
-//deleting the state of the user if someone deleted the user from the main state
-export const deletingUsername = (userData, username) => {
-  const deletedUser = userData.users.filter(
-    (item) => item.username !== username
-  );
+//randomize images
 
-  return (dispatch) => {
-    dispatch(deletingUsernameCaller(deletedUser));
-  };
-};
-
-//editing the state of the users if some one updates / edits the username
-export const editingUsername = (userData, parentUser, editedUsername) => {
-  // console.log(parentUser, "username");
-  // console.log(userData," user data")
-
-  // console.log(editedUsername, "editedUsername haha");
-  let editedUser = userData.users.map((item, index) => {
-    if(item.username === parentUser){
-      item['username']=editedUsername
-    }
+export const randomizeImages = (cardStates) => {
+  console.log(cardStates, "card states");
+  const cardStatesRandomized = cardStates.map((item, index) => {
+    console.log(item.image,'item image')
+    item.image=item.image+index;
     return item;
   });
-
-
   return (dispatch) => {
-    dispatch(editingUsernameCaller(editedUser));
+    dispatch(randomizeImagesAppend(cardStatesRandomized));
   };
 };
 
@@ -95,12 +78,28 @@ export const voteState = (userData, username) => {
   };
 };
 
-export const randomizePersons = (persons) => {
-  //source : https://javascript.info/task/shuffle
+//deleting the state of the user if someone deleted the user from the main state
+export const deletingUsername = (userData, username) => {
+  const deletedUser = userData.users.filter(
+    (item) => item.username !== username
+  );
 
-  return {
-    type: RANDOMIZE_PERSONS,
-    payload: persons,
+  return (dispatch) => {
+    dispatch(deletingUsernameCaller(deletedUser));
+  };
+};
+
+//editing the state of the users if some one updates / edits the username
+export const editingUsername = (userData, parentUser, editedUsername) => {
+  let editedUser = userData.users.map((item, index) => {
+    if (item.username === parentUser) {
+      item["username"] = editedUsername;
+    }
+    return item;
+  });
+
+  return (dispatch) => {
+    dispatch(editingUsernameCaller(editedUser));
   };
 };
 
@@ -125,8 +124,23 @@ export const fetchUsersFailure = (err_message) => {
   };
 };
 
-export const voteUserState = (somePayload) => {
+export const randomizePersons = (persons) => {
+  //source : https://javascript.info/task/shuffle
 
+  return {
+    type: RANDOMIZE_PERSONS,
+    payload: persons,
+  };
+};
+
+export const randomizeImagesAppend = (userState) => {
+  return {
+    type: RANDOMIZE_IMAGES,
+    payload: userState,
+  };
+};
+
+export const voteUserState = (somePayload) => {
   return {
     type: VOTE_STATE,
     payload: somePayload,
