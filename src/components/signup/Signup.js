@@ -3,13 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
-
 import { useHistory } from "react-router";
-
-
-
-// import Cookies from "universal-cookie";
-// const cookies = new Cookies();
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,8 +15,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp() {
-
-
   let history = useHistory();
 
   const [username, setUsername] = useState("");
@@ -40,7 +32,7 @@ export default function SignUp() {
 
   const signupHandle = () => {
     localStorage.setItem("credentialInfo", postAPIvalue());
-    history.push('/login')
+    history.push("/login");
   };
 
   const postAPIvalue = () => {

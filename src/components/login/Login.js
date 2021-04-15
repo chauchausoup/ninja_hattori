@@ -1,13 +1,14 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
-import Cookies from "universal-cookie";
 import { useHistory, useLocation } from "react-router";
 import { useAuth } from "../authUtilities";
 
-const cookies = new Cookies();
+import { fetchUsers } from "../../redux/index";
+
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,6 +24,8 @@ export default function Login() {
   let location = useLocation();
   let auth = useAuth();
   let { from } = location.state || { from: { pathname: "/" } };
+
+  const dispatcher = useDispatch();
 
   let login = () => {
     auth.signin(() => {
@@ -45,9 +48,8 @@ export default function Login() {
 
   const handleLoginSuccess = () => {
     console.log("login success");
-    //clear text box values
-    //got to /user-list page
     login();
+    dispatcher(fetchUsers());
   };
 
   const handleLoginFailure = () => {
@@ -55,12 +57,9 @@ export default function Login() {
   };
 
   const loginHandle = () => {
-    // console.log("login")
-    // console.log(postAPIvalue().password,postAPIvalue().username);
-
-    const getCredentialsInfo = JSON.parse(localStorage.getItem("credentialInfo"));
-
-    // console.log(getCredentialsInfo)
+    const getCredentialsInfo = JSON.parse(
+      localStorage.getItem("credentialInfo")
+    );
 
     getCredentialsInfo &&
     getCredentialsInfo.username === username &&
@@ -68,8 +67,6 @@ export default function Login() {
       ? handleLoginSuccess()
       : handleLoginFailure();
   };
-
-
 
   const classes = useStyles();
 

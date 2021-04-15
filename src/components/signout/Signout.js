@@ -4,17 +4,12 @@ import { useHistory } from "react-router";
 
 import { useAuth } from "../authUtilities";
 
-// import Cookies from 'universal-cookie'
-// const cookies = new Cookies()
 const getCredentialsInfo = JSON.parse(localStorage.getItem("credentialInfo"));
 
 export default function Signout() {
   let history = useHistory();
   let auth = useAuth();
-  console.log("whats inside auth",auth)
 
-
-  
   return auth.user ? (
     <p>
       Welcome! {getCredentialsInfo.username} <br />

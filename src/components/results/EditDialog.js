@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+
+//MUI
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -10,8 +12,20 @@ import IconButton from "@material-ui/core/IconButton";
 
 import BorderColorIcon from "@material-ui/icons/BorderColor";
 
-export default function FormDialog() {
+import { editingUsername } from "../../redux/index";
+import { useDispatch, useSelector } from "react-redux";
+
+export default function FormDialog(props) {
+  const dispatcher = useDispatch();
+  const userData = useSelector((state) => state.persons);
+
   const [open, setOpen] = React.useState(false);
+  const [editedUsername, setEUsername] = useState("");
+  const [parentUser, setParentUser] = useState("");
+
+  useEffect(() => {
+    setParentUser(props.username);
+  }, [props.username]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -19,6 +33,12 @@ export default function FormDialog() {
 
   const handleClose = () => {
     setOpen(false);
+    dispatcher(editingUsername(userData, parentUser, editedUsername));
+  };
+
+  const handleEditChange = (e) => {
+    e.preventDefault();
+    setEUsername(e.target.value);
   };
 
   return (
@@ -33,9 +53,7 @@ export default function FormDialog() {
       >
         <DialogTitle id="form-dialog-title">Edit username here:</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-           Enter a username
-          </DialogContentText>
+          <DialogContentText>Enter a username</DialogContentText>
           <TextField
             autoFocus
             margin="dense"
@@ -43,6 +61,7 @@ export default function FormDialog() {
             label="Username"
             type="text"
             fullWidth
+            onChange={handleEditChange}
           />
         </DialogContent>
         <DialogActions>

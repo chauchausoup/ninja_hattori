@@ -9,17 +9,11 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
 
-import store from "../../redux/store/store";
-
 import DeleteOutlineTwoToneIcon from "@material-ui/icons/DeleteOutlineTwoTone";
 
-import EditDialog from './EditDialog'
-import { fetchUsers, randomizeUsers } from "../../redux/index";
-import { connect } from "react-redux";
-
-
-
-
+import EditDialog from "./EditDialog";
+import { deletingUsername } from "../../redux/index";
+import { useSelector, useDispatch } from "react-redux";
 
 const useStyles = makeStyles({
   table: {
@@ -28,17 +22,14 @@ const useStyles = makeStyles({
 });
 
 function BasicTable() {
+  const userData = useSelector((state) => state.persons);
+
   const [rowState, setRows] = useState([]);
 
   useEffect(() => {
-    const rows = store.getState().persons.users;
+    const rows = userData.users;
     setRows(rows);
-    rows.forEach((item) => console.log(item));
-
-    console.log(rows,"this is user data state")
-  }, []);
-
-
+  }, [userData.users]);
 
   const classes = useStyles();
 
@@ -58,7 +49,9 @@ function BasicTable() {
               <TableCell component="th" scope="row">
                 {row.username}
               </TableCell>
-              <TableCell><h3 style={{color:"red"}}>{row.vote}</h3></TableCell>
+              <TableCell>
+                <h3 style={{ color: "red" }}>{row.vote}</h3>
+              </TableCell>
               <TableCell align="right">
                 <KeyComponents item={row.username} />
               </TableCell>
@@ -71,57 +64,34 @@ function BasicTable() {
 }
 
 const KeyComponents = (props) => {
+  const dispatcher = useDispatch();
+  const userData = useSelector((state) => state.persons);
 
-  useEffect(()=>{
-    setUser(props)
+  const [user, setUser] = useState("");
 
-    console.log(props)
-  },[])
-
-  const[user,setUser]=useState('')
+  useEffect(() => {
+    setUser(props.item);
+  }, [props.item]);
 
   const deleteHandler = (e) => {
+    alert(`deleting ${user} ...`);
 
-    alert(`are you sure you want to delete, ${user.item}`);
-
-    console.log((store.getState().persons.users) + " store ")
-
+    dispatcher(deletingUsername(userData, user));
   };
-
-
 
   return (
     <div>
-      <IconButton aria-label="delete">
-        <DeleteOutlineTwoToneIcon onClick={() => deleteHandler()} />
+      <IconButton aria-label="delete"  onClick={() => deleteHandler()} >
+        <DeleteOutlineTwoToneIcon/>
       </IconButton>
 
       {/* edit button */}
-      <EditDialog/>
+      <EditDialog username={user} />
     </div>
   );
-};
-
-
-//redux to props
-//selectors will be a separate file in most of the larger applications
-const mapStateToProps = (state) => {
-  console.log(state);
-  return {
-    userData: state.persons,
-  };
-};
-
-//defining map dispatch to props
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchUsers: () => dispatch(fetchUsers()),
-    randomizeUsers: () => dispatch(randomizeUsers()),
-  };
 };
 
 //we need to connect these two functions with our react components
 //for that we use connect HOC from react redux library
 
-export default connect(mapStateToProps, mapDispatchToProps)(BasicTable);
-
+export default BasicTable;

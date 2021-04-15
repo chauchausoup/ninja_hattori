@@ -1,7 +1,6 @@
 import "./App.css";
 import React from "react";
-import { Provider } from "react-redux";
-import store from "./redux/store/store";
+
 import Homepage from "./components/homepage/Homepage";
 import Login from "./components/login/Login";
 import Signout from "./components/signout/Signout";
@@ -9,7 +8,8 @@ import Signup from "./components/signup/Signup";
 import Results from "./components/results/Results";
 import CardList from "./components/cardList/CardList";
 
-// import Example from './components/reactRouterExample/reactRouterRedirect'
+import { Provider } from "react-redux";
+import store from "./redux/store/store";
 
 //react router dom
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";

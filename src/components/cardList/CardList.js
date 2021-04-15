@@ -5,10 +5,9 @@ import Button from "@material-ui/core/Button";
 
 import CardSingle from "../card/CardSingle";
 
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-// import { updatePersons } from "../../redux/index";
-import { fetchUsers, randomizeUsers } from "../../redux/index";
+import { randomizeUsers } from "../../redux/index";
 
 import "./CardList.css";
 
@@ -25,28 +24,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function UsersContainer({ userData, fetchUsers, randomizeUsers }) {
-  // const [ iniState,setIniState]=useState({})
+function UsersContainer() {
+
+
+  const [cardStates,setCardStates]=useState([])
+
+  const userData = useSelector((state) => state.persons);
+  const dispatcher = useDispatch();
 
   const classes = useStyles();
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+
+  useEffect(()=>{
+    setCardStates(userData.users)
+    // console.log(cardStates,"cardstates")
+  },[userData.users])
 
   const clickRandomHandler = () => {
-    console.log("randomizer called");
-    randomizeUsers();
+    dispatcher(randomizeUsers());
   };
 
-  // const voteInitializer=(username)=>{
-  //   iniState[username]=0
-  // }
-
-  return userData.loading ? (
-    <h2>Loading</h2>
-  ) : userData.error ? (
-    <h2>{userData.error}</h2>
+  return cardStates.loading ? (
+    <p>Loading</p>
+  ) : cardStates.error ? (
+    <h2>{cardStates.error}</h2>
   ) : (
     <div>
       <div className={classes.root}>
@@ -60,35 +61,13 @@ function UsersContainer({ userData, fetchUsers, randomizeUsers }) {
       </div>
 
       <div className="userList">
-        {userData &&
-          userData.users &&
-          userData.users.map((person) => {
-            // voteInitializer(person.username)
-            return <CardSingle val={person} /* sta={iniState}  */ />;
+        {cardStates &&
+          cardStates.map((person) => {
+            return <CardSingle val={person} key={person.id} />;
           })}
       </div>
     </div>
   );
 }
 
-//redux to props
-//selectors will be a separate file in most of the larger applications
-const mapStateToProps = (state) => {
-  console.log(state);
-  return {
-    userData: state.persons,
-  };
-};
-
-//defining map dispatch to props
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchUsers: () => dispatch(fetchUsers()),
-    randomizeUsers: () => dispatch(randomizeUsers()),
-  };
-};
-
-//we need to connect these two functions with our react components
-//for that we use connect HOC from react redux library
-
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+export default UsersContainer;
