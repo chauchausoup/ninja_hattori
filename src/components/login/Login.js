@@ -50,6 +50,9 @@ export default function Login() {
     console.log("login success");
     login();
     dispatcher(fetchUsers());
+    //dispatcher for images
+
+    
   };
 
   const handleLoginFailure = () => {
