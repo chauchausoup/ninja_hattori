@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import { makeStyles } from "@material-ui/core/styles";
 
 import Button from "@material-ui/core/Button";
@@ -24,21 +25,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function UsersContainer() {
+function CardList() {
 
+  const [cardStates, setCardStates] = useState([]);
 
-  const [cardStates,setCardStates]=useState([])
-
+  //redux
   const userData = useSelector((state) => state.persons);
   const dispatcher = useDispatch();
 
   const classes = useStyles();
 
-
-  useEffect(()=>{
-    setCardStates(userData.users)
-    // console.log(cardStates,"cardstates")
-  },[userData.users])
+  //useEffects
+  useEffect(() => {
+    setCardStates(userData.users);
+  }, [userData.users]);
 
   const clickRandomHandler = () => {
     dispatcher(randomizeUsers());
@@ -70,4 +70,4 @@ function UsersContainer() {
   );
 }
 
-export default UsersContainer;
+export default CardList;

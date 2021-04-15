@@ -39,22 +39,25 @@ const useStyles = makeStyles((theme) => ({
 
 const roboHashURL = "https://robohash.org/";
 
-function ComplexGrid(props) {
+function CardSingle(props) {
+  //redux
   const userData = useSelector((state) => state.persons);
   const dispatcher = useDispatch();
 
   const [singleCardState, setSingleCardState] = useState({});
   const [flag, setFlag] = useState(null);
 
+  //useEffects
   useEffect(() => {
     setSingleCardState(props.val);
-  },[props.val]);
+  }, [props.val]);
 
   useEffect(() => {
     flag && setSingleCardState(props.val);
-  }, [flag,props.val]);
+  }, [flag, props.val]);
 
   const classes = useStyles();
+
   const randomGenerator = Math.random() + new Date();
 
   const voteHandle = (username) => {
@@ -100,4 +103,4 @@ function ComplexGrid(props) {
   );
 }
 
-export default ComplexGrid;
+export default CardSingle;
