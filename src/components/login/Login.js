@@ -51,8 +51,6 @@ export default function Login() {
     login();
     dispatcher(fetchUsersStart());
     //dispatcher for images
-
-    
   };
 
   const handleLoginFailure = () => {

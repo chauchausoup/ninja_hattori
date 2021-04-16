@@ -1,7 +1,6 @@
 //lets import action type
 import {
   RANDOMIZE_PERSONS,
-  FETCH_USER_START,
   FETCH_USER_FAILURE,
   FETCH_USER_SUCCESS,
   VOTE_STATE,
