@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 import store from "../store/store";
 
 import {
@@ -10,72 +10,81 @@ import {
   EDITING_USERNAME,
   DELETING_USERNAME,
   RANDOMIZE_IMAGES,
+  FETCH_USER_SAGA,
+  FETCH_USER_START,
+  RANDOMIZE_PERSONS_SAGA,
+  RANDOMIZE_IMAGES_SAGA,
+  VOTE_STATE_SAGA
 } from "./persons.types";
 
-//normalization
-const normalizeResponse = (response) => {
-  const norm = response.map((item, index) => {
-    return {
-      id: item.id,
-      name: item.name,
-      username: item.username,
-      vote: 0,
-      image: `https://robohash.org/${item.id}`,
-    };
-  });
-  return norm;
-};
+//normalization : HELPER FUNCTION
+// const normalizeResponse = (response) => {
+//   const norm = response.map((item, index) => {
+//     return {
+//       id: item.id,
+//       name: item.name,
+//       username: item.username,
+//       vote: 0,
+//       image: `https://robohash.org/${item.id}`,
+//     };
+//   });
+//   return norm;
+// };
 
-//here os
 // const roboHashURL = "https://robohash.org/ ";
 //first initial fetching of the user state
+// export const fetchUsers = () => {
+//   return async (dispatch) => {
+//     dispatch(fetchUsersRequest(true));
+//     try {
+//       let response = await axios.get(
+//         "https://jsonplaceholder.typicode.com/users"
+//       );
+//       const persons = normalizeResponse(response.data);
+//       dispatch(fetchUsersSuccess(persons));
+//     } catch (error) {
+//       dispatch(fetchUsersFailure(error.message));
+//     }
+//   };
+// };
+
 export const fetchUsers = () => {
-  return async (dispatch) => {
-    dispatch(fetchUsersRequest(true));
-    try {
-      let response = await axios.get(
-        "https://jsonplaceholder.typicode.com/users"
-      );
-      const persons = normalizeResponse(response.data);
-      dispatch(fetchUsersSuccess(persons));
-    } catch (error) {
-      dispatch(fetchUsersFailure(error.message));
-    }
+  return {
+    type: FETCH_USER_START,
+  };
+};
+
+//update user state after randomizing
+export const randomizeUsers = () => {
+  return {
+    type: RANDOMIZE_PERSONS_SAGA,
+    payload: store.getState().persons.users,
+  };
+};
+
+export const randomizePersons = (persons) => {
+  //source : https://javascript.info/task/shuffle
+
+  return {
+    type: RANDOMIZE_PERSONS,
+    payload: persons,
   };
 };
 
 //randomize images
 
 export const randomizeImages = (cardStates) => {
-  console.log(cardStates, "card states");
-  const cardStatesRandomized = cardStates.map((item, index) => {
-    console.log(item.image, "item image");
-    item.image = item.image + index;
-    return item;
-  });
-  return (dispatch) => {
-    dispatch(randomizeImagesAppend(cardStatesRandomized));
-  };
-};
-
-//update user state after randomizing
-export const randomizeUsers = () => {
-  return (dispatch) => {
-    dispatch(randomizePersons(store.getState().persons.users));
+  return {
+    type: RANDOMIZE_IMAGES_SAGA,
+    payload: cardStates,
   };
 };
 
 //updating users state after voting
 export const voteState = (userData, username) => {
-  const somePayload = userData.map((item, index) => {
-    if (item.username === username) {
-      item.vote++;
-    }
-    return item;
-  });
-
-  return (dispatch) => {
-    dispatch(voteUserState(somePayload));
+  return {
+    type: VOTE_STATE_SAGA,
+    payload: {userData,username}
   };
 };
 
@@ -104,35 +113,26 @@ export const editingUsername = (userData, parentUser, editedUsername) => {
   };
 };
 
-export const fetchUsersRequest = (data) => {
-  return {
-    type: FETCH_USER_REQUEST,
-    payload: data,
-  };
-};
+// export const fetchUsersRequest = (data) => {
+//   return {
+//     type: FETCH_USER_REQUEST,
+//     payload: data,
+//   };
+// };
 
-export const fetchUsersSuccess = (persons) => {
-  return {
-    type: FETCH_USER_SUCCESS,
-    payload: persons,
-  };
-};
+// export const fetchUsersSuccess = (persons) => {
+//   return {
+//     type: FETCH_USER_SUCCESS,
+//     payload: persons,
+//   };
+// };
 
-export const fetchUsersFailure = (err_message) => {
-  return {
-    type: FETCH_USER_FAILURE,
-    payload: err_message,
-  };
-};
-
-export const randomizePersons = (persons) => {
-  //source : https://javascript.info/task/shuffle
-
-  return {
-    type: RANDOMIZE_PERSONS,
-    payload: persons,
-  };
-};
+// export const fetchUsersFailure = (err_message) => {
+//   return {
+//     type: FETCH_USER_FAILURE,
+//     payload: err_message,
+//   };
+// };
 
 export const randomizeImagesAppend = (userState) => {
   return {
@@ -159,5 +159,25 @@ export const deletingUsernameCaller = (deletedUsers) => {
   return {
     type: DELETING_USERNAME,
     payload: deletedUsers,
+  };
+};
+
+export const fetchUsersStart = () => {
+  return {
+    type: FETCH_USER_START,
+  };
+};
+
+export const fetchUsersSuccess = (persons) => {
+  return {
+    type: FETCH_USER_SUCCESS,
+    payload: persons,
+  };
+};
+
+export const fetchUsersFailure = (err_message) => {
+  return {
+    type: FETCH_USER_FAILURE,
+    payload: err_message,
   };
 };

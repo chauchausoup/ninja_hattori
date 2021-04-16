@@ -1,7 +1,7 @@
 //lets import action type
 import {
   RANDOMIZE_PERSONS,
-  FETCH_USER_REQUEST,
+  FETCH_USER_START,
   FETCH_USER_FAILURE,
   FETCH_USER_SUCCESS,
   VOTE_STATE,
@@ -31,21 +31,24 @@ export const personsReducer = (state = initialPersonState, action) => {
   }
 
   switch (action.type) {
-    case FETCH_USER_SUCCESS:
+    
+    case FETCH_USER_START:
+      return {
+        ...state,
+        loading: true
+      };
+      case FETCH_USER_SUCCESS:
       // console.log(action.payload,"action payload")
       return {
         ...state,
         users: action.payload,
-      };
-    case FETCH_USER_REQUEST:
-      return {
-        ...state,
-        loading: action.payload,
+        loading: false
       };
     case FETCH_USER_FAILURE:
       return {
         ...state,
         error: action.payload,
+        loading: false
       };
 
     case RANDOMIZE_PERSONS:
