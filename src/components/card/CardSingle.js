@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const roboHashURL = "https://robohash.org/";
+// const roboHashURL = "https://robohash.org/";
 
 function CardSingle(props) {
   //redux
@@ -58,7 +58,7 @@ function CardSingle(props) {
 
   const classes = useStyles();
 
-  const randomGenerator = Math.random() + new Date();
+  // const randomGenerator = Math.random() + new Date();
 
   const voteHandle = (username) => {
     setFlag(1);

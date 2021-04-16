@@ -1,11 +1,13 @@
 import axios from "axios";
-import { put, all, takeLatest, takeEvery } from "redux-saga/effects";
+import { put, all, takeEvery } from "redux-saga/effects";
 import {
   fetchUsersSuccess,
   fetchUsersFailure,
   randomizePersons,
   randomizeImagesAppend,
   voteUserState,
+  deletingUsernameCaller,
+  editingUsernameCaller,
 } from "./persons.actions";
 
 import * as personTypes from "./persons.types";
@@ -32,6 +34,7 @@ export function* randomizeUsersSaga(action) {
   }
 }
 
+//IMAGE RANDOMIZATION
 export function* randomizeImagesSaga(action) {
   try {
     console.log(action.payload);
@@ -47,6 +50,8 @@ export function* randomizeImagesSaga(action) {
   }
 }
 
+//VOTING SAGA
+
 export function* voteStateSaga(action) {
   try {
     const { userData, username } = action.payload;
@@ -59,6 +64,41 @@ export function* voteStateSaga(action) {
     });
 
     yield put(voteUserState(somePayload));
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+//DELETING USERS
+
+export function* deleteUsernameSaga(action) {
+  try {
+    const { userData, username } = action.payload;
+
+    const deletedUser = userData.users.filter(
+      (item) => item.username !== username
+    );
+
+    yield put(deletingUsernameCaller(deletedUser));
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+//EDITING
+
+export function* editUsernameSaga(action) {
+  try {
+    const { userData, parentUser, editedUsername } = action.payload;
+
+    let editedUser = userData.users.map((item, index) => {
+      if (item.username === parentUser) {
+        item["username"] = editedUsername;
+      }
+      return item;
+    });
+
+    yield put(editingUsernameCaller(editedUser));
   } catch (error) {
     console.log(error.message);
   }
@@ -81,12 +121,21 @@ export function* watchVoteStateSaga() {
   yield takeEvery(personTypes.VOTE_STATE_SAGA, voteStateSaga);
 }
 
+export function* watchDeletingUsernameSaga() {
+  yield takeEvery(personTypes.DELETING_USERNAME_SAGA, deleteUsernameSaga);
+}
+export function* watchEditingUsernameSaga() {
+  yield takeEvery(personTypes.EDITING_USERNAME_SAGA, editUsernameSaga);
+}
+
 export function* personSaga() {
   yield all([
     watchFetchUser(),
     watchRandomizeUserSaga(),
-    watchRandomizeUserSaga(),
-    watchVoteStateSaga()
+    watchRandomizeImagesSaga(),
+    watchVoteStateSaga(),
+    watchDeletingUsernameSaga(),
+    watchEditingUsernameSaga(),
   ]);
 }
 
