@@ -29,17 +29,17 @@ const normalizeResponse = (response) => {
 // const roboHashURL = "https://robohash.org/";
 //first initial fetching of the user state
 export const fetchUsers = () => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(fetchUsersRequest(true));
-    axios
-      .get("https://jsonplaceholder.typicode.com/users")
-      .then((response) => {
-        const persons = normalizeResponse(response.data);
-        dispatch(fetchUsersSuccess(persons));
-      })
-      .catch((error) => {
-        dispatch(fetchUsersFailure(error.message));
-      });
+    try {
+      let response = await axios.get(
+        "https://jsonplaceholder.typicode.com/users"
+      );
+      const persons = normalizeResponse(response.data);
+      dispatch(fetchUsersSuccess(persons));
+    } catch (error) {
+      dispatch(fetchUsersFailure(error.message));
+    }
   };
 };
 
@@ -48,8 +48,8 @@ export const fetchUsers = () => {
 export const randomizeImages = (cardStates) => {
   console.log(cardStates, "card states");
   const cardStatesRandomized = cardStates.map((item, index) => {
-    console.log(item.image,'item image')
-    item.image=item.image+index;
+    console.log(item.image, "item image");
+    item.image = item.image + index;
     return item;
   });
   return (dispatch) => {
