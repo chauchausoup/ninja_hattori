@@ -1,33 +1,22 @@
 //lets import action type
 import {
   RANDOMIZE_PERSONS,
-  FETCH_USER_REQUEST,
   FETCH_USER_FAILURE,
   FETCH_USER_SUCCESS,
   VOTE_STATE,
   EDITING_USERNAME,
-  DELETING_USERNAME
+  DELETING_USERNAME,
+  RANDOMIZE_IMAGES
+
 } from "./persons.types";
 
 //combine reducer from redux
-// import {combineReducer} from 'redux'
-
-
 
 const initialPersonState = {
   loading: false,
   users: [],
   error: "",
 };
-
-// const initialImageState={
-//   loading:false,
-//   images:[],
-//   error:""
-// }
-
-
-
 
 export const personsReducer = (state = initialPersonState, action) => {
   //shuffling function for randomizing the user array
@@ -41,21 +30,24 @@ export const personsReducer = (state = initialPersonState, action) => {
   }
 
   switch (action.type) {
-    case FETCH_USER_SUCCESS:
+    
+    case FETCH_USER_START:
+      return {
+        ...state,
+        loading: true
+      };
+      case FETCH_USER_SUCCESS:
       // console.log(action.payload,"action payload")
       return {
         ...state,
         users: action.payload,
-      };
-    case FETCH_USER_REQUEST:
-      return {
-        ...state,
-        loading: action.payload,
+        loading: false
       };
     case FETCH_USER_FAILURE:
       return {
         ...state,
         error: action.payload,
+        loading: false
       };
 
     case RANDOMIZE_PERSONS:
@@ -65,6 +57,13 @@ export const personsReducer = (state = initialPersonState, action) => {
         error: "",
       };
 
+    case RANDOMIZE_IMAGES:
+        return{
+          loading:false,
+          users:action.payload,
+          error:""
+
+        }
     case VOTE_STATE:
       return {
         loading: false,

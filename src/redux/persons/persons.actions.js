@@ -1,97 +1,33 @@
-import axios from "axios";
+// import axios from "axios";
 import store from "../store/store";
-// import { personsReducer } from "./persons.reducer";
-
-// import { useSelector, useDispatch } from "react-redux";
 
 import {
-  FETCH_USER_REQUEST,
   FETCH_USER_SUCCESS,
   FETCH_USER_FAILURE,
   RANDOMIZE_PERSONS,
   VOTE_STATE,
   EDITING_USERNAME,
   DELETING_USERNAME,
+  RANDOMIZE_IMAGES,
+  FETCH_USER_START,
+  RANDOMIZE_PERSONS_SAGA,
+  RANDOMIZE_IMAGES_SAGA,
+  VOTE_STATE_SAGA,
+  DELETING_USERNAME_SAGA,
+  EDITING_USERNAME_SAGA,
 } from "./persons.types";
 
-//normalization
-const normalizeResponse = (response) => {
-  const norm = response.map((item, index) => {
-    return {
-      id: item.id,
-      name: item.name,
-      username: item.username,
-      vote: 0,
-    };
-  });
-  return norm;
-};
-
-//first initial fetching of the user state
 export const fetchUsers = () => {
-  return (dispatch) => {
-    dispatch(fetchUsersRequest(true));
-    axios
-      .get("https://jsonplaceholder.typicode.com/users")
-      .then((response) => {
-        const persons = normalizeResponse(response.data);
-        // console.log(persons + " pers");
-        dispatch(fetchUsersSuccess(persons));
-      })
-      .catch((error) => {
-        dispatch(fetchUsersFailure(error.message));
-      });
-  };
-};
-
-//deleting the state of the user if someone deleted the user from the main state
-export const deletingUsername = (userData, username) => {
-  const deletedUser = userData.users.filter(
-    (item) => item.username !== username
-  );
-
-  return (dispatch) => {
-    dispatch(deletingUsernameCaller(deletedUser));
-  };
-};
-
-//editing the state of the users if some one updates / edits the username
-export const editingUsername = (userData, parentUser, editedUsername) => {
-  // console.log(parentUser, "username");
-  // console.log(userData," user data")
-
-  // console.log(editedUsername, "editedUsername haha");
-  let editedUser = userData.users.map((item, index) => {
-    if(item.username === parentUser){
-      item['username']=editedUsername
-    }
-    return item;
-  });
-
-
-  return (dispatch) => {
-    dispatch(editingUsernameCaller(editedUser));
+  return {
+    type: FETCH_USER_START,
   };
 };
 
 //update user state after randomizing
 export const randomizeUsers = () => {
-  return (dispatch) => {
-    dispatch(randomizePersons(store.getState().persons.users));
-  };
-};
-
-//updating users state after voting
-export const voteState = (userData, username) => {
-  const somePayload = userData.map((item, index) => {
-    if (item.username === username) {
-      item.vote++;
-    }
-    return item;
-  });
-
-  return (dispatch) => {
-    dispatch(voteUserState(somePayload));
+  return {
+    type: RANDOMIZE_PERSONS_SAGA,
+    payload: store.getState().persons.users,
   };
 };
 
@@ -104,10 +40,73 @@ export const randomizePersons = (persons) => {
   };
 };
 
-export const fetchUsersRequest = (data) => {
+//randomize images
+
+export const randomizeImages = (cardStates) => {
   return {
-    type: FETCH_USER_REQUEST,
-    payload: data,
+    type: RANDOMIZE_IMAGES_SAGA,
+    payload: cardStates,
+  };
+};
+
+export const randomizeImagesAppend = (userState) => {
+  return {
+    type: RANDOMIZE_IMAGES,
+    payload: userState,
+  };
+};
+
+//updating users state after voting
+
+export const voteState = (userData, username) => {
+  return {
+    type: VOTE_STATE_SAGA,
+    payload: { userData, username },
+  };
+};
+
+export const voteUserState = (somePayload) => {
+  return {
+    type: VOTE_STATE,
+    payload: somePayload,
+  };
+};
+
+//deleting the state of the user if someone deleted the user from the main state
+export const deletingUsername = (userData, username) => {
+  return {
+    type: DELETING_USERNAME_SAGA,
+    payload: { userData, username },
+  };
+};
+
+export const deletingUsernameCaller = (deletedUsers) => {
+  return {
+    type: DELETING_USERNAME,
+    payload: deletedUsers,
+  };
+};
+
+//editing the state of the users if some one updates / edits the username
+export const editingUsername = (userData, parentUser, editedUsername) => {
+  return {
+    type: EDITING_USERNAME_SAGA,
+    payload: { userData, parentUser, editedUsername },
+  };
+};
+
+export const editingUsernameCaller = (editedUsers) => {
+  return {
+    type: EDITING_USERNAME,
+    payload: editedUsers,
+  };
+};
+
+//user fetchers
+
+export const fetchUsersStart = () => {
+  return {
+    type: FETCH_USER_START,
   };
 };
 
@@ -122,27 +121,5 @@ export const fetchUsersFailure = (err_message) => {
   return {
     type: FETCH_USER_FAILURE,
     payload: err_message,
-  };
-};
-
-export const voteUserState = (somePayload) => {
-
-  return {
-    type: VOTE_STATE,
-    payload: somePayload,
-  };
-};
-
-export const editingUsernameCaller = (editedUsers) => {
-  return {
-    type: EDITING_USERNAME,
-    payload: editedUsers,
-  };
-};
-
-export const deletingUsernameCaller = (deletedUsers) => {
-  return {
-    type: DELETING_USERNAME,
-    payload: deletedUsers,
   };
 };

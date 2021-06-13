@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 import { useHistory, useLocation } from "react-router";
 import { useAuth } from "../authUtilities";
 
-import { fetchUsers } from "../../redux/index";
+import { fetchUsersStart } from "../../redux/index";
 
 import { useDispatch } from "react-redux";
 
@@ -49,7 +49,8 @@ export default function Login() {
   const handleLoginSuccess = () => {
     console.log("login success");
     login();
-    dispatcher(fetchUsers());
+    dispatcher(fetchUsersStart());
+    //dispatcher for images
   };
 
   const handleLoginFailure = () => {
